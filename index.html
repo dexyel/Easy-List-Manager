@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Easy List Manager</title>
+
+    <link rel="stylesheet" href="./general.css">
+    <link rel="stylesheet" href="./header.css">   
+    <link rel="stylesheet" href="./menu.css">
+    <link rel="stylesheet" href="./todos.css">
+    <link rel="stylesheet" href="./sideMenu.css">
+    <link rel="stylesheet" href="./userModal.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;500&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body class="guest">
+    <div class="container">
+        <header>        
+            <h1>Easy List Manager</h1>      
+            <div class="profile-menu">
+                <p class="user-text"></p>
+                <i class="fa-solid fa-user-large"></i>
+            </div>
+        </header>
+
+        <div class="user-modal">
+            <div class="modal-content">
+                <i class="fa-solid fa-xmark"></i>
+                <div class="user-list">
+                    <!-- <div class="user">
+                        <div class="user-picture">
+                            <i class="fa-solid fa-user"></i>
+                        </div>                        
+                        <p>Dylan</p>
+                    </div>     -->
+
+                    <div class="guest-user">
+                        <div class="user-picture">
+                            <i class="fa-solid fa-user"></i>
+                        </div>                        
+                        <p>Guest</p>
+                    </div>  
+                                    
+                </div>
+
+                <div class="user-options">
+                    <div class="add-button">
+                        <i class="fa-solid fa-add"></i>
+                        <p>New</p>
+                    </div>
+                    <div class="delete-button">
+                        <i class="fa-solid fa-trash-can"></i>
+                        <p>Delete</p>
+                    </div>
+                    <div class="login-button">
+                        <i class="fa-solid fa-key"></i>
+                        <p>Login</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="side-container">
+            <i class="fa-solid fa-bars closed"></i>
+            <div class="side-menu"></div>
+        </div>
+    
+        <div class="menu">
+            <div class="menu-content">
+                <h2 contenteditable="true" data-placeholder="New List" class="edit-title"></h2>
+                <div class="input-div">
+                    <form class="list-menu">        
+                        <input type="text" class="todo-input" placeholder="Todo:">
+                        <button class="todo-button" type="submit">
+                            <i class="fa-solid fa-plus"></i>
+                        </button>                    
+                    </form>
+                    <div class="select">
+                        <select name="todos" class="filter-todo">
+                            <option value="all">All</option>
+                            <option value="finished">Finished</option>
+                            <option value="unfinished">Unfinished</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+        <div class="main-section">
+            <div class="todo-container">
+                <ul class="todo-list"></ul>
+            </div> 
+        </div>    
+    </div>
+    
+    <script src="./user.js"></script>
+    <script src="./editableTitle.js"></script>
+    <script src="./todoManager.js"></script>
+    <script src="./sideMenu.js""></script>
+    <script src="./userModal.js"></script>
+</body>
+</html>

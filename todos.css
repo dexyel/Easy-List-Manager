@@ -1,0 +1,75 @@
+.main-section {
+    position: relative;
+    top: 15vh;
+    display: flex;
+    justify-content: center;
+}
+
+.todo-list {
+    min-width: 30rem;
+    list-style: none;
+    display: inline-block;
+    margin-top: 2rem;
+    padding: 0;
+}
+
+.todo {
+    margin-bottom: 1rem;
+    background: white;
+
+    font-size: 1.5rem;
+    color: black;
+    padding-left: 0.5rem;
+    
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    transition: all 0.7s ease;
+}
+
+.completed {
+    text-decoration: line-through;
+    opacity: 0.7;
+    transform: translateX(2rem);
+}
+
+.deleted {
+    transform: translateX(10rem);
+    opacity: 0;
+}
+
+.todo li {
+    flex: 1;
+}
+
+.todo-checked,
+.todo-delete {
+    border: none;
+    padding: 1rem;
+
+    cursor: pointer;
+}
+
+.todo-checked i,
+.todo-delete i {
+    color: white;
+    pointer-events: none;
+}
+
+.todo-checked {
+    background: rgb(242, 100, 68);
+}
+
+.todo-checked:hover {
+    background: rgb(245, 131, 105);
+}
+
+.todo-delete {
+    background: rgb(217, 59, 146);
+}
+
+.todo-delete:hover {
+    background: rgb(225, 98, 168);
+};
+

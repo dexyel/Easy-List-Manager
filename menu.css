@@ -1,0 +1,114 @@
+.menu {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+    position: relative;
+    top: 15vh;
+
+    overflow: hidden;
+}
+
+.menu-content {
+    padding: 1rem;
+
+    min-height: 10vh;
+    
+    background:rgba(221, 155, 250, 0.2);
+
+    border-radius: 10px;
+
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+.menu-content h2 {
+    font-size: 1.8rem;
+    font-weight: 300;
+    text-align: center;
+
+    padding-bottom: 1rem;
+    margin: 0 0 1rem 0;
+
+    border-bottom: solid 1px rgba(255, 255, 255, 0.5);  
+    outline: none;
+
+    cursor:text;
+}
+
+.menu-content h2:empty:before {
+    content: attr(data-placeholder);
+}
+
+.input-div {
+    display: flex;
+    flex: 1;
+    justify-content: space-between;    
+    align-items: center;
+}
+
+.todo-input,
+.todo-button {
+    font-size: 1.5rem;
+    padding: 0.5rem;
+    border: none;
+    outline: none;
+}
+
+.todo-button {
+    background-color: white;
+    color: rgb(242, 100, 68);
+    cursor: pointer;
+    margin-left: -4px;
+
+    transition: background 0.2s ease;
+}
+
+.todo-button:hover {
+    background: rgb(242, 100, 68);
+    color: white;
+}
+
+.todo-button:active {
+    background: rgb(245, 131, 105);
+}
+
+.select {
+    position: relative;
+    overflow: hidden;
+}
+
+.select::after {
+    content: "\25BC";
+
+    color: rgb(242, 100, 68);
+    background: white;
+
+    display: inline-block;
+    position: absolute;
+    top: 0;
+    right: 0;   
+
+    padding: 0.5rem;
+
+    pointer-events: none;
+}
+
+.select:hover::after {
+    background-color: rgb(242, 100, 68);
+    color: white;
+}
+
+select {
+    appearance: none;
+    border: none;
+    outline: none;
+
+    width: 10rem;
+    padding: 0.5rem;
+    margin-left: 1rem;
+
+    font-size: 1rem;
+    font-family: inherit;
+
+    cursor: pointer;
+}
