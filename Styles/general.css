@@ -1,15 +1,32 @@
+:root {
+    --background: 30, 35, 64;
+    --text: 254, 254, 254;
+    --color1: 168, 122, 237;
+    --color2: 22, 139, 234;
+    --color3: 11, 128, 111;
+    --color4: 248, 159, 76;
+    --color5: 232, 86, 134;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
 html, body {
     height: 100%;
     overflow: hidden;
 }
 
 body {
-    margin: 0;
-    padding: 0;
+    font-family: Raleway, monospace;
+    background: rgb(var(--background));
     overflow: auto;
+    overflow-y: hidden;
+    box-sizing: border-box;
+}
 
-    background: linear-gradient(rgb(29, 28, 64), rgb(171, 5, 242));
-    
-    color: white;
-    font-family: Raleway, sans-serif;
+h1 {
+    font-size: 3rem;
+    color: rgb(var(--text));
 }

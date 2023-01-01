@@ -1,0 +1,17 @@
+#footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    min-height: fit-content;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    z-index: 100;
+}
+
+.fa-circle-plus {
+    font-size: 4rem;
+    color: rgb(var(--color4));
+}
