@@ -5,13 +5,89 @@
     right: 0;
     min-height: fit-content;
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-end;
     align-items: center;
     padding: 1rem;
     z-index: 100;
 }
 
-.fa-circle-plus {
+#footer button {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+#new-container {
+    display: flex;
+    flex: 1;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    bottom: -150%;
+    transform: translateX(-50%);
+}
+
+#new-container.open {
+    animation: slideIn 0.5s ease forwards;
+}
+
+#new-container.closed {
+    animation: slideOut 0.5s ease forwards;
+}
+
+#color-buttons {
+    margin-right: 2rem;
+}
+
+#color-buttons button {
+    margin-right: 1rem;
+}
+
+.fa-circle {
+    font-size: 1.5rem;
+}
+
+#input-container {
+    display: flex;
+    align-items: center;
+}
+
+#todo-input {
+    border-radius: 25px;
+    min-width: 550px;
+    height: 15px;
+    padding: 1rem;
+    margin-right: 1rem;
+    border: none;
+}
+
+#enter-button {
+    margin-right: 3rem;
+}
+
+.fa-check {
+    font-size: 2rem;
+    color: rgb(var(--text));
+}
+
+.important-checkbox {
+    width: 20px;
+    margin: 20px auto;
+}
+
+.important-checkbox input {
+    display: none;
+}
+
+.important-checkbox label {
+    font-size: 2.5rem;
+    cursor: pointer;
+    color: rgba(var(--text), 0.3);
+}
+
+.fa-circle-plus,
+.fa-circle-xmark {
     font-size: 4rem;
     color: rgb(var(--color4));
+    z-index: 100;
 }

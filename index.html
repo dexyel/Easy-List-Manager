@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="./Styles/general.css">
     <link rel="stylesheet" href="./Styles/header.css">
     <link rel="stylesheet" href="./Styles/footer.css">
+    <link rel="stylesheet" href="./Styles/keyframes.css">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -38,10 +39,48 @@
 
     <footer>
         <div id="footer">
-            <i class="fa-solid fa-circle-plus"></i>
+            <div id="new-container" class="closed">
+                <div id="color-buttons">
+                    <button id="color1-button" aria-label="Color 1">
+                        <i class="fa-solid fa-circle"></i>
+                    </button>
+                    <button id="color2-button" aria-label="Color 2">
+                        <i class="fa-solid fa-circle"></i>
+                    </button>
+                    <button id="color3-button" aria-label="Color 3">
+                        <i class="fa-solid fa-circle"></i>
+                    </button>
+                    <button id="color4-button" aria-label="Color 4">
+                        <i class="fa-solid fa-circle"></i>
+                    </button>
+                    <button id="color5-button" aria-label="Color 5">
+                        <i class="fa-solid fa-circle"></i>
+                    </button>
+                </div>                
+
+                <div id="input-container">
+                    <input id="todo-input" type="text" placeholder="New...">
+                    <button id="enter-button">
+                        <i class="fa-solid fa-check"></i>
+                    </button>
+
+                    <div class="important-checkbox">
+                        <input type="checkbox" name="check" value="None" id="important-check">
+                        <label id="important-label" for="important-check">
+                            <i class="fa-solid fa-triangle-exclamation"></i>
+                        </label>
+                    </div>                    
+                </div>
+               
+            </div>
+            
+            <button id="new-todo-button" aria-label="New">
+                <i class="fa-solid fa-circle-plus"></i>
+            </button>            
         </div>
     </footer>    
 
     <script src="./Scripts/initialsColoring.js"></script>
+    <script src="./Scripts/menu.js"></script>
 </body>
 </html>
