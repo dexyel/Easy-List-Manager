@@ -3,7 +3,7 @@
     bottom: 0;
     left: 0;
     right: 0;
-    min-height: fit-content;
+    height: fit-content;
     display: flex;
     justify-content: flex-end;
     align-items: center;
@@ -23,16 +23,20 @@
     justify-content: center;
     align-items: center;
     position: absolute;
-    bottom: -150%;
+    bottom: -100%;
+    opacity: 0;
     transform: translateX(-50%);
+    transition: opacity 0.3s ease;
 }
 
 #new-container.open {
-    animation: slideIn 0.5s ease forwards;
+    animation: slideIn 0.5s ease-in-out forwards;
+    opacity: 1;
 }
 
 #new-container.closed {
-    animation: slideOut 0.5s ease forwards;
+    animation: slideOut 0.5s ease-in-out forwards;
+    opacity: 0;
 }
 
 #color-buttons {
@@ -57,8 +61,10 @@
     min-width: 550px;
     height: 15px;
     padding: 1rem;
+    padding-left: 3.5rem;
     margin-right: 1rem;
     border: none;
+    font-size: 1.1rem;
 }
 
 #enter-button {
@@ -70,19 +76,16 @@
     color: rgb(var(--text));
 }
 
-.important-checkbox {
+#important-button {
     width: 20px;
     margin: 20px auto;
-}
-
-.important-checkbox input {
-    display: none;
-}
-
-.important-checkbox label {
-    font-size: 2.5rem;
+    font-size: 2rem;
     cursor: pointer;
-    color: rgba(var(--text), 0.3);
+    color: rgba(var(--text), 0.4);
+}
+
+#important-button.active {
+    color: rgb(245, 100, 100);
 }
 
 .fa-circle-plus,

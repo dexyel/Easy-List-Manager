@@ -1,0 +1,69 @@
+#main-container {
+    position: fixed;
+    top: 6rem;
+    left: 0;
+    right: 10px;
+    bottom: 6rem;
+    overflow: auto;
+}
+
+#main-container::-webkit-scrollbar {
+    width: 7px;
+}
+
+#main-container::-webkit-scrollbar-thumb {
+    background: rgba(var(--text), 0.3);
+    border-radius: 4px;
+}
+
+#list-container {
+    margin: 7rem 25rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#list-container li {
+    list-style: none;
+    min-width: 500px;
+    max-width: fit-content;
+    height: fit-content;
+    display: flex;
+    align-items: center;
+    font-size: 1.25rem;
+    color: rgb(var(--text));
+    padding: 2rem 2rem;
+    border-radius: 3rem;
+    margin-bottom: 1rem; 
+    overflow: hidden;
+    transition: all 0.3s ease-in-out;
+}
+
+#list-container li.done {
+    background: rgba(189, 255, 209, 0.5) !important;
+    height: 1rem;
+    padding: 0.5rem 2rem;
+    font-size: 1rem;
+    transition: all 0.3s ease-in-out;    
+}
+
+#list-container li.done.important::before {
+    font-size: 3rem;
+    left: -1.5rem;
+    top: -1.7rem;
+    transition: all 0.3s ease-in-out;  
+}
+
+#list-container li.important::before {
+    font-family: 'Font Awesome 6 Free';
+    font-weight: 900;
+    font-size: 8rem;
+    width: 0;
+    height: 0;
+    content: '\f071';
+    position: relative;
+    left: -2rem;
+    top: -4rem;
+    color: rgba(0, 0, 0, 0.15);
+    transition: all 0.3s ease-in-out;  
+}

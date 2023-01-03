@@ -9,6 +9,7 @@
 
     <link rel="stylesheet" href="./Styles/general.css">
     <link rel="stylesheet" href="./Styles/header.css">
+    <link rel="stylesheet" href="./Styles/main.css">
     <link rel="stylesheet" href="./Styles/footer.css">
     <link rel="stylesheet" href="./Styles/keyframes.css">
 
@@ -35,7 +36,13 @@
         </div>
     </header>
 
-    <div id="main-container"></div>
+    <div id="main-container">
+        <div id="list-container">
+            <ul>
+
+            </ul>
+        </div>
+    </div>
 
     <footer>
         <div id="footer">
@@ -63,13 +70,10 @@
                     <button id="enter-button">
                         <i class="fa-solid fa-check"></i>
                     </button>
-
-                    <div class="important-checkbox">
-                        <input type="checkbox" name="check" value="None" id="important-check">
-                        <label id="important-label" for="important-check">
-                            <i class="fa-solid fa-triangle-exclamation"></i>
-                        </label>
-                    </div>                    
+          
+                    <button id="important-button" >
+                        <i class="fa-solid fa-triangle-exclamation"></i>
+                    </button>                   
                 </div>
                
             </div>
@@ -82,5 +86,6 @@
 
     <script src="./Scripts/initialsColoring.js"></script>
     <script src="./Scripts/menu.js"></script>
+    <script src="./Scripts/todoManager.js"></script>
 </body>
 </html>
