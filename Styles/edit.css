@@ -1,0 +1,81 @@
+#edit-container {
+    position: absolute;
+    top: 10rem;
+    left: 0;
+    right: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+}
+
+#edit-container.visible {
+    opacity: 1;
+    pointer-events: initial;
+}
+
+#edit-container.hidden {
+    opacity: 0;
+    pointer-events: none;
+}
+
+#list-title {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    color: rgb(var(--text));
+    font-size: 2rem;
+    font-weight: 300;
+    outline: none;
+    cursor: text;
+}
+
+#list-title:empty::before {
+    content: attr(placeholder);
+}
+
+#list-title:not(:empty):focus::before {
+    content: "";
+}
+
+#list-title:focus::before {
+    content: "";
+}
+
+#list-title::after {
+    content: "";
+    position: absolute;
+    bottom: -8px;
+    left: -25px;
+    right: -25px;
+    height: 1px;
+    background-color: rgba(var(--text), 0.4);
+}
+
+#edit-buttons {
+    position: fixed;
+    right: 1rem;
+}
+
+#edit-buttons button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    margin-right: 1rem;
+}
+
+#edit-buttons button i {
+    color: rgba(var(--text), 0.4);
+    transition: color 0.3s ease;
+    font-size: 1.25rem;
+}
+
+#destroy-button .fa-trash-can:hover {
+    color: rgb(245, 100, 100);
+}
+
+#edit-buttons button i:hover {
+    color: rgb(var(--text));
+}
+

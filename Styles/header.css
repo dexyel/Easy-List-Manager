@@ -3,12 +3,17 @@
     top: 0;
     left: 0;
     right: 0;
-    height: fit-content;
+    height: 5rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 1rem;
     z-index: 100;
+    background: linear-gradient(to bottom, rgb(var(--background)) 0% 75%, transparent 100%);
+}
+
+#title {
+    cursor:default;
 }
 
 #header-container button {    

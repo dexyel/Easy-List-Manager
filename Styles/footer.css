@@ -1,4 +1,4 @@
-#footer {
+#footer-container {
     position: fixed;
     bottom: 0;
     left: 0;
@@ -9,9 +9,10 @@
     align-items: center;
     padding: 1rem;
     z-index: 100;
+    background: linear-gradient(to top, rgb(var(--background)) 0% 75%, transparent 100%);
 }
 
-#footer button {
+#footer-container button {
     background: transparent;
     border: none;
     cursor: pointer;
@@ -26,7 +27,7 @@
     bottom: -100%;
     opacity: 0;
     transform: translateX(-50%);
-    transition: opacity 0.3s ease;
+    transition: opacity 0.5s ease-in-out;
 }
 
 #new-container.open {
@@ -72,8 +73,18 @@
 }
 
 .fa-check {
+    background-color: initial;
     font-size: 2rem;
     color: rgb(var(--text));
+    transition: transform 0.3s ease;
+}
+
+.fa-check:hover {
+    transform: scale(1.15);
+}
+
+.fa-check:active {
+    transform: scale(1) rotateZ(5deg); 
 }
 
 #important-button {
@@ -82,15 +93,28 @@
     font-size: 2rem;
     cursor: pointer;
     color: rgba(var(--text), 0.4);
+    transition: color 0.3s ease;
+}
+
+#important-button:hover {
+    color: rgba(245, 100, 100, 0.5);
 }
 
 #important-button.active {
     color: rgb(245, 100, 100);
 }
 
-.fa-circle-plus,
-.fa-circle-xmark {
+.fa-circle-plus {
     font-size: 4rem;
     color: rgb(var(--color4));
     z-index: 100;
+    transition: filter 0.3s ease, transform 0.05s ease-in-out;
+}
+
+.fa-circle-plus:hover {
+    filter: brightness(85%);
+}
+
+.fa-circle-plus:active {
+    filter: brightness(115%);
 }

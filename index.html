@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="./Styles/general.css">
     <link rel="stylesheet" href="./Styles/header.css">
     <link rel="stylesheet" href="./Styles/main.css">
+    <link rel="stylesheet" href="./Styles/edit.css">
     <link rel="stylesheet" href="./Styles/footer.css">
     <link rel="stylesheet" href="./Styles/keyframes.css">
 
@@ -20,12 +21,13 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body>
+    <!-- <div class="center-line"></div> -->
     <header>
         <div id="header-container">
             <button id="mode-button" aria-label="Dark Mode">
                 <i class="fa-solid fa-circle-half-stroke"></i>
             </button>
-            <h1>
+            <h1 id="title">                
                 <span class="initials">E</span>asy
                 <span class="initials">L</span>ist
                 <span class="initials">M</span>anager
@@ -37,6 +39,27 @@
     </header>
 
     <div id="main-container">
+        <div id="edit-container" class="hidden">
+            
+            <div id="lists-menu">
+
+            </div>
+            <h2 id="list-title" contenteditable placeholder="New List..."></h2>
+            <div id="edit-buttons">
+                <button id="save-button">
+                    <i class="fa-solid fa-floppy-disk"></i>
+                </button>
+                <button id="import-button">
+                    <i class="fa-solid fa-file-import"></i>
+                </button>
+                <button id="export-button">
+                    <i class="fa-solid fa-file-export"></i>
+                </button>
+                <button id="destroy-button">
+                    <i class="fa-solid fa-trash-can"></i>
+                </button>                
+            </div>            
+        </div>        
         <div id="list-container">
             <ul>
 
@@ -45,7 +68,7 @@
     </div>
 
     <footer>
-        <div id="footer">
+        <div id="footer-container">
             <div id="new-container" class="closed">
                 <div id="color-buttons">
                     <button id="color1-button" aria-label="Color 1">
@@ -65,7 +88,7 @@
                     </button>
                 </div>                
 
-                <div id="input-container">
+                <div id="input-container">                    
                     <input id="todo-input" type="text" placeholder="New...">
                     <button id="enter-button">
                         <i class="fa-solid fa-check"></i>

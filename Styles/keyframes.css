@@ -15,3 +15,21 @@
         bottom: -150%;
     }   
 }
+
+@keyframes fadeIn {
+    from {        
+        top: -150%;
+    }
+    to {        
+        top: 0;
+    }
+}
+
+@keyframes fadeOut {
+    from {        
+        top: 0;
+    }
+    to {        
+        top: -150%;
+    }   
+}

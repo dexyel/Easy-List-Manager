@@ -12,8 +12,10 @@ importantButton.addEventListener('click', () => {
 
 function createListItem() {
     let li = document.createElement('li');
-    
+    let deleteButton = document.createElement('button');
     let gradientString = input.style.background;
+
+    deleteButton.classList.add("delete-button");
 
     if (gradientString)
     {
@@ -24,7 +26,7 @@ function createListItem() {
     }
     else
     {
-        li.style.background = 'rgba(inherit, 0.3)';
+        li.style.background = 'rgba(255, 255, 255, 0.3)';
     }
 
     if (importantButton.classList.contains('active')) {
@@ -33,6 +35,7 @@ function createListItem() {
     }
 
     li.appendChild(document.createTextNode(input.value));
+    li.appendChild(deleteButton);
     
     ul.appendChild(li);
 
@@ -40,6 +43,19 @@ function createListItem() {
 
     li.addEventListener('click', () => {
         li.classList.toggle('done');
+    });
+
+    li.addEventListener('mouseover', () => {
+        let computedStyle = window.getComputedStyle(li);
+        let color = computedStyle.getPropertyValue('background-color');
+        let match = color.match(/^rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*(\d+(?:\.\d+)?))?\)$/);
+        let rgba = match ? `rgba(${match[1]}, ${match[2]}, ${match[3]}, 0.3)` : color;
+
+        li.style.boxShadow = `0 0 200px ${rgba}`;
+    });
+
+    li.addEventListener('mouseout', () => { 
+        li.style.boxShadow = "none";
     });
 }
 

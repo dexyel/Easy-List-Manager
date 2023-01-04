@@ -1,9 +1,9 @@
 #main-container {
     position: fixed;
-    top: 6rem;
+    top: 0;
+    right:0;
+    bottom: 0;
     left: 0;
-    right: 10px;
-    bottom: 6rem;
     overflow: auto;
 }
 
@@ -17,7 +17,7 @@
 }
 
 #list-container {
-    margin: 7rem 25rem;
+    margin: 15rem 25rem;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -33,25 +33,19 @@
     font-size: 1.25rem;
     color: rgb(var(--text));
     padding: 2rem 2rem;
-    border-radius: 3rem;
+    border-radius: calc(5.25rem/2);
     margin-bottom: 1rem; 
     overflow: hidden;
     transition: all 0.3s ease-in-out;
 }
 
 #list-container li.done {
-    background: rgba(189, 255, 209, 0.5) !important;
+    background: rgba(101, 240, 120, 0.8) !important;
+    color: rgba(19, 19, 19, 0.5) !important;
     height: 1rem;
     padding: 0.5rem 2rem;
     font-size: 1rem;
-    transition: all 0.3s ease-in-out;    
-}
-
-#list-container li.done.important::before {
-    font-size: 3rem;
-    left: -1.5rem;
-    top: -1.7rem;
-    transition: all 0.3s ease-in-out;  
+    transition: all 0.3s ease-in-out;
 }
 
 #list-container li.important::before {
@@ -66,4 +60,36 @@
     top: -4rem;
     color: rgba(0, 0, 0, 0.15);
     transition: all 0.3s ease-in-out;  
+}
+
+#list-container li.done.important::before {
+    font-size: 3rem;
+    left: -1.5rem;
+    top: -1.7rem;
+    transition: all 0.3s ease-in-out;  
+}
+
+#list-container li:hover .delete-button::before {
+    font-family: 'Font Awesome 6 Free';
+    font-weight: 900;
+    font-size: 1.5rem;
+    content: '\f1f8';
+    height: 0;
+    width: 0;    
+}
+
+#list-container li:hover .delete-button:hover::before {
+    color: rgba(var(--text), 1);
+}
+
+.delete-button {
+    position: relative;
+    top: -0.75rem;
+    right: -27rem;
+    width: 0;
+    height: 0;
+    background: transparent;
+    color: rgba(var(--text), 0.5);
+    border: none;
+    cursor: pointer;
 }
