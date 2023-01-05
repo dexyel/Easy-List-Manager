@@ -14,34 +14,35 @@
 
 #title {
     cursor:default;
+    position: fixed;
+    left: 50%;
+    transform: translateX(-50%);
 }
 
-#header-container button {    
+#header-container button {
+    position: fixed;
+    right: 2rem;  
     font-size: 2rem;
     background: transparent;
     border: none;
 }
 
-.fa-circle-user,
-.fa-circle-half-stroke {
+.fa-circle-user {
     color: rgb(var(--text));
     cursor: pointer;
     transition: color 0.3s ease-in-out, border 0.3s ease-in-out;
     padding: 4px;
 }
 
-.fa-circle-user,
-.fa-circle-half-stroke {    
+.fa-circle-user {    
     border: solid 3px transparent;
     border-radius: 50%;    
 }
 
-.fa-circle-user:hover,
-.fa-circle-half-stroke:hover {
+.fa-circle-user:hover {
     border: solid 3px rgb(var(--text));
 }
 
-#header-container button:active > .fa-circle-half-stroke,
 #header-container button:active > .fa-circle-user {
     filter: opacity(80%);
 }

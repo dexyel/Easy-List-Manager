@@ -13,7 +13,7 @@ exportButton.addEventListener('click', exportList);
 importButton.addEventListener('click', importList);
 newListButton.addEventListener('click', newList);
 
-window.addEventListener('load', loadList);
+window.addEventListener('load', loadLocalStorageToMenu);
 ul.addEventListener('DOMSubtreeModified', updateButtons);
 ul.addEventListener('DOMNodeRemoved', updateButtons);
 
@@ -71,7 +71,7 @@ function saveList() {
 }
 
 function loadList() {
-    const data = JSON.parse(localStorage.getItem('list'));
+    const data = JSON.parse(localStorage.getItem(activeList));
 
     if (data)
     {
@@ -194,8 +194,10 @@ function importList() {
                 }
 
                 ul.appendChild(li);
-                addListToMenu(listData.title);
             });
+
+            localStorage.setItem(listData.title, JSON.stringify(listData));
+            addListToMenu(listData.title);
         };
     });
 }
@@ -240,7 +242,6 @@ function updateActiveList() {
     }
 }
 
-
 function newList() {
     activeList = "";
     listTitle.textContent = "";
@@ -282,4 +283,17 @@ function loadListFromMenu(activeListTitle) {
 
         updateButtons();
     }
+}
+
+function loadLocalStorageToMenu() {
+    const listsMenu = document.getElementById("lists-menu-items");
+    const keys = Object.keys(localStorage);
+
+    keys.forEach((key) => {
+        const li = document.createElement("li");
+
+        li.innerHTML = `<a href="#">${key}</a>`;
+
+        listsMenu.appendChild(li);
+    });
 }
