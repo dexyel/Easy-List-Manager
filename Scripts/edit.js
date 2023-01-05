@@ -1,18 +1,44 @@
+
+
 const saveButton = document.getElementById('save-button');
 const destroyButton = document.getElementById('destroy-button');
 const exportButton = document.getElementById('export-button');
+const importButton = document.getElementById('import-button');
+const newListButton = document.getElementById('new-list-button');
 const listTitle = document.getElementById('list-title');
 
 saveButton.addEventListener('click', saveList);
 destroyButton.addEventListener('click', destroyList);
 exportButton.addEventListener('click', exportList);
+importButton.addEventListener('click', importList);
+newListButton.addEventListener('click', newList);
 
-window.addEventListener('load', updateButtons);
+window.addEventListener('load', loadList);
 ul.addEventListener('DOMSubtreeModified', updateButtons);
 ul.addEventListener('DOMNodeRemoved', updateButtons);
 
 listTitle.addEventListener('input', () => {
     updateButtons();
+});
+
+listTitle.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter')
+    {
+        e.preventDefault();
+        updateActiveList();
+    }
+});
+
+document.getElementById('lists-menu-items').addEventListener('click', (e) => {
+
+    console.log(e.target.innerText + " " + e.target.textContent + " " + e.target.tagName);
+
+    if (e.target.tagName === "A")
+    {
+        activeList = e.target.innerText;
+        
+        loadListFromMenu(activeList);
+    }
 });
 
 function saveList() {
@@ -38,8 +64,10 @@ function saveList() {
         title: listTitle,
         items: listData,
     };
+
+    updateActiveList();
     
-    localStorage.setItem('list', JSON.stringify(data));
+    localStorage.setItem(listTitle, JSON.stringify(data));
 }
 
 function loadList() {
@@ -53,6 +81,8 @@ function loadList() {
         const listItems = data.items;
         listItems.forEach((item) => {
             const li = document.createElement('li');
+            
+            addListItemEvents(li);
 
             li.innerText = item.text;
             li.style.background = item.background;
@@ -69,36 +99,27 @@ function loadList() {
 
             ul.appendChild(li);
         });
+
+        addListToMenu(listTitle);
     }
+
+    updateButtons();
 }
 
 function destroyList() {
     listTitle.textContent = '';
-    
+    localStorage.removeItem('list');
+
     while (ul.firstChild)
     {
         ul.removeChild(ul.firstChild);
     }    
 }
 
-function updateButtons() {
-    if (listTitle.textContent.trim() === '' && ul.children.length === 0)
-    {
-        saveButton.classList.add("disabled");
-        exportButton.classList.add("disabled");
-    }
-    else
-    {
-        saveButton.classList.remove("disabled");
-        exportButton.classList.remove("disabled");
-    }
-}
-
 function exportList() {
-    console.log('exportList function called');
     const listTitle = document.getElementById('list-title').innerText;
-    const listItems = document.querySelectorAll(' #list-container ul li');
-    const listData = [];
+    const listItems = document.querySelectorAll('#list-container ul li');
+    let listData = [];
 
     listItems.forEach((item) => {
         const itemText = item.innerText;
@@ -113,31 +134,152 @@ function exportList() {
             important: isImportant,
         });
     });
-    
+
     const data = {
         title: listTitle,
         items: listData,
     };
 
-    console.log('data object:', data);
-    const fileContent = JSON.stringify(data);
+    const jsonData = JSON.stringify(data);
+    const anchor = document.createElement('a');
 
-    downloadList(`list.elmlist`, fileContent);
+    anchor.setAttribute('href', 'data:text/plain;charset=utf-8,' + jsonData);
+    anchor.setAttribute('download', `${listTitle}.elmlist`);    
+    anchor.click();
 }
 
-function downloadList(filename, text) {
-    console.log('downloadList function called');
-    console.log('filename:', filename);
-    console.log('text:', text);
-    let element = document.createElement('a');
+function importList() {
+    const input = document.createElement('input');
+    input.type = 'file';
+    input.accept = '.elmlist';
+    input.click();
 
-    element.setAttribute('href', 'data:text/plain;charset=utf-8' + encodeURIComponent(text));
-    element.setAttribute('download', filename);
+    input.addEventListener('change', (e) => {
+        const file = e.target.files[0];
 
-    element.style.display = 'none';
-    document.body.appendChild(element);
+        if (!file) 
+        {
+            alert('Please select a file');
+        } 
+        else if (file.name.slice(-7) !== 'elmlist') 
+        {
+            alert('The file must have a .elmlist extension');
+        }
 
-    element.click();
+        const reader = new FileReader();
 
-    document.body.removeChild(element);
+        reader.readAsText(file);
+        reader.onload = (e) => {
+            const listData = JSON.parse(e.target.result);
+            
+            document.getElementById('list-title').textContent = listData.title;
+            ul.innerHTML = '';
+
+            listData.items.forEach((item) => {
+                const li = document.createElement('li');
+                
+                addListItemEvents(li);
+                
+                li.innerText = item.text;
+                li.style.background = item.background;
+
+                if (item.done)
+                {
+                    li.classList.add('done');
+                }
+
+                if (item.important)
+                {
+                    li.classList.add('important');
+                }
+
+                ul.appendChild(li);
+                addListToMenu(listData.title);
+            });
+        };
+    });
+}
+
+function updateButtons() {
+    if (listTitle.textContent.trim() === '' || ul.children.length === 0)
+    {
+        saveButton.classList.add("disabled");
+        exportButton.classList.add("disabled");
+    }
+    else
+    {
+        saveButton.classList.remove("disabled");
+        exportButton.classList.remove("disabled");
+    }
+}
+
+function updateActiveList() {
+    if (activeList && activeList !== listTitle.innerText) 
+    {
+        const activeElements = document.querySelectorAll(`#lists-menu-items li`);
+        const currentListData = JSON.parse(localStorage.getItem(activeList));
+
+        for (const activeElement of activeElements) 
+        {
+            if (activeElement.textContent.indexOf(activeList) !== -1) 
+            {                
+                activeElement.innerHTML = `<a href="#">${listTitle.innerText}</a>`;
+                break;
+            }
+        }
+
+        localStorage.removeItem(activeList);
+        localStorage.setItem(listTitle.innerText, JSON.stringify(currentListData));
+        console.log("activeList: " + activeList + " listTitle: " + listTitle.innerText);
+        activeList = listTitle.innerText;
+        console.log("activeList: " + activeList + " listTitle: " + listTitle.innerText);
+    } 
+    else if (!activeList && ul.children.length !== 0) 
+    {
+        addListToMenu(listTitle.innerText);
+    }
+}
+
+
+function newList() {
+    activeList = "";
+    listTitle.textContent = "";
+    ul.innerHTML = "";
+}
+
+function loadListFromMenu(activeListTitle) {
+    console.log(activeListTitle);
+
+    const data = JSON.parse(localStorage.getItem(activeListTitle));
+
+    if (data)
+    {
+        listTitle.textContent = activeListTitle;
+        ul.innerHTML = "";
+
+        const listItems = data.items;
+
+        listItems.forEach((item) => {
+            const li = document.createElement("li");
+
+            addListItemEvents(li);
+
+            li.innerText = item.text;
+            li.style.background = item.background;
+
+            if (item.done)
+            {
+                li.classList.add("done");
+            }
+
+            if (item.important)
+            {
+                li.classList.add("important");
+            }
+
+            ul.appendChild(li);
+        });
+
+        updateButtons();
+    }
 }

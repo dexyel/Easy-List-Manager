@@ -1,19 +1,23 @@
 const enterButton = document.getElementById('enter-button');
-const ul = document.querySelector('ul');
+const ul = document.querySelector('#list-container ul');
 const importantButton = document.getElementById('important-button');
 
 let item = document.getElementsByTagName('li');
+let activeList = "";
 
 enterButton.addEventListener('click', addItemOnClick);
 input.addEventListener('keypress', addItemOnEnter);
+
 importantButton.addEventListener('click', () => {
     importantButton.classList.toggle('active');
 });
 
 function createListItem() {
-    let li = document.createElement('li');
+    let li = document.createElement('li');    
     let deleteButton = document.createElement('button');
     let gradientString = input.style.background;
+
+    addListItemEvents(li);
 
     deleteButton.classList.add("delete-button");
 
@@ -40,7 +44,23 @@ function createListItem() {
     ul.appendChild(li);
 
     input.value = "";    
+}
 
+function addItemOnClick() {
+    if (input.value.length > 0)
+    {
+        createListItem();
+    }
+}
+
+function addItemOnEnter(event) {
+    if (input.value.length > 0 && event.keyCode === 13)
+    {
+        createListItem();
+    }
+}
+
+function addListItemEvents(li) {
     li.addEventListener('click', () => {
         li.classList.toggle('done');
     });
@@ -59,16 +79,12 @@ function createListItem() {
     });
 }
 
-function addItemOnClick() {
-    if (input.value.length > 0)
-    {
-        createListItem();
-    }
+function addListToMenu(listTitle) {
+    const li = document.createElement('li');
+    
+    li.innerHTML = `<a href="#">${listTitle}</a>`;
+    activeList = `${listTitle}`;
+
+    document.querySelector('#lists-menu-items').appendChild(li);
 }
 
-function addItemOnEnter(event) {
-    if (input.value.length > 0 && event.keyCode === 13)
-    {
-        createListItem();
-    }
-}

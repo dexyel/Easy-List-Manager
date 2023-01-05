@@ -8,15 +8,6 @@ let activeButton;
 
 newButton.addEventListener('click', toggleMenu);
 
-// for (var i = 0; i < circles.length; i++) 
-// {
-//     console.log(circles[i]);
-//     circles[i].addEventListener('click', (e) => {
-//         input.style.background = `linear-gradient(to right, ${colors[i]} 7%, white 0%)`;
-//         activateButton(e.target);
-//     });
-// }
-
 for (var i = 0; i < circles.length; i++) 
 {
     circles[i].addEventListener('click', (function(index) {        

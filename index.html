@@ -39,12 +39,24 @@
     </header>
 
     <div id="main-container">
-        <div id="edit-container" class="hidden">
-            
+        <div id="edit-container" class="hidden">            
             <div id="lists-menu">
+                <div id="lists-menu-header">
+                    <h3>Lists:</h3>
+                    <button id="new-list-button">
+                        <i class="fa-solid fa-plus"></i>
+                    </button>
+                </div>
 
+                <div id="lists-menu-items-container">
+                    <ul id="lists-menu-items">
+
+                    </ul>
+                </div>                
             </div>
+
             <h2 id="list-title" contenteditable placeholder="New List..."></h2>
+
             <div id="edit-buttons">
                 <button id="save-button">
                     <i class="fa-solid fa-floppy-disk"></i>
@@ -59,7 +71,8 @@
                     <i class="fa-solid fa-trash-can"></i>
                 </button>                
             </div>            
-        </div>        
+        </div>    
+
         <div id="list-container">
             <ul>
 
