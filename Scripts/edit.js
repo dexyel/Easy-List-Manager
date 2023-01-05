@@ -60,13 +60,22 @@ function saveList() {
         });
     });
     
-    const data = {
+    let data = {
         title: listTitle,
         items: listData,
+        version: 1,
     };
 
     updateActiveList();
-    
+
+    const existingList = JSON.parse(localStorage.getItem(listTitle));
+
+    if (existingList) 
+    {
+        data = existingList;
+        data.version++;
+    }
+
     localStorage.setItem(listTitle, JSON.stringify(data));
 }
 
@@ -102,18 +111,28 @@ function loadList() {
 
         addListToMenu(listTitle);
     }
-
-    updateButtons();
 }
 
 function destroyList() {
     listTitle.textContent = '';
-    localStorage.removeItem('list');
+    localStorage.removeItem(activeList);
+
+    const activeElements = document.querySelectorAll(`#lists-menu-items li`);
+
+    for (const activeElement of activeElements) {
+        if (activeElement.textContent.indexOf(activeList) !== -1) 
+        {
+            activeElement.remove();
+            break;
+        }
+    }
 
     while (ul.firstChild)
     {
         ul.removeChild(ul.firstChild);
-    }    
+    }
+    
+    activeList = "";
 }
 
 function exportList() {
@@ -138,6 +157,7 @@ function exportList() {
     const data = {
         title: listTitle,
         items: listData,
+        version: listData.version,
     };
 
     const jsonData = JSON.stringify(data);
@@ -171,6 +191,26 @@ function importList() {
         reader.readAsText(file);
         reader.onload = (e) => {
             const listData = JSON.parse(e.target.result);
+            const existingList = JSON.parse(localStorage.getItem(listData.title));
+
+            if (existingList) 
+            {
+                if (listData.version > existingList.version) 
+                {                    
+                    localStorage.setItem(listData.title, JSON.stringify(listData));
+                }
+                else if (listData.version < existingList.version) 
+                {
+                    if(confirm(`A newer version of the list already exists. Do you want to overwrite it?`))
+                    {
+                        localStorage.setItem(listData.title, JSON.stringify(listData));
+                    }
+                } 
+                else 
+                {
+                    alert(`The list "${listData.title}" is already up to date.`);
+                }
+            }
             
             document.getElementById('list-title').textContent = listData.title;
             ul.innerHTML = '';
@@ -296,4 +336,6 @@ function loadLocalStorageToMenu() {
 
         listsMenu.appendChild(li);
     });
+
+    updateButtons();
 }
