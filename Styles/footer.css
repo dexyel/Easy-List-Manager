@@ -45,11 +45,23 @@
 }
 
 #color-buttons button {
-    margin-right: 1rem;
+    margin-right: 0.25rem;
 }
 
 .fa-circle {
     font-size: 1.5rem;
+    border: solid 4px transparent;
+    border-radius: 50%;
+    padding: 4px;
+}
+
+.fa-circle:hover, .fa-circle:active, .fa-circle.is-active {
+    border: solid 4px currentColor;
+    border-radius: 50%;
+}
+
+.fa-circle:active {
+    filter: brightness(115%);
 }
 
 #input-container {

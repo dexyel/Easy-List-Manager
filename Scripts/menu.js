@@ -2,34 +2,30 @@ const newContainer = document.getElementById('new-container');
 const newButton = document.getElementById('new-todo-button');
 const editContainer = document.getElementById('edit-container');
 const input = document.getElementById('todo-input');
-const button1 = document.querySelector('#color1-button');
-const button2 = document.querySelector('#color2-button');
-const button3 = document.querySelector('#color3-button');
-const button4 = document.querySelector('#color4-button');
-const button5 = document.querySelector('#color5-button');
-const circles = document.querySelectorAll('#color-buttons i');
+const circles = document.querySelectorAll('#color-buttons button');
+
+let activeButton;
 
 newButton.addEventListener('click', toggleMenu);
 
-button1.addEventListener('click', () => {
-    input.style.background = `linear-gradient(to right, ${colors[0]} 7%, white 0%)`;
-});
+// for (var i = 0; i < circles.length; i++) 
+// {
+//     console.log(circles[i]);
+//     circles[i].addEventListener('click', (e) => {
+//         input.style.background = `linear-gradient(to right, ${colors[i]} 7%, white 0%)`;
+//         activateButton(e.target);
+//     });
+// }
 
-button2.addEventListener('click', () => {
-    input.style.background = `linear-gradient(to right, ${colors[1]} 7%, white 0%)`;
-});
-
-button3.addEventListener('click', () => {
-    input.style.background = `linear-gradient(to right, ${colors[2]} 7%, white 0%)`;
-});
-
-button4.addEventListener('click', () => {
-    input.style.background = `linear-gradient(to right, ${colors[3]} 7%, white 0%)`;
-});
-
-button5.addEventListener('click', () => {
-    input.style.background = `linear-gradient(to right, ${colors[4]} 7%, white 0%)`;
-});
+for (var i = 0; i < circles.length; i++) 
+{
+    circles[i].addEventListener('click', (function(index) {        
+        return function() {
+            input.style.background = `linear-gradient(to right, ${colors[index]} 7%, white 0%)`;
+            activateButton(circles[index].firstElementChild);
+        };
+    })(i));
+}
 
 function toggleMenu() {
     const icon = newButton.firstElementChild;
@@ -56,4 +52,23 @@ function toggleMenu() {
 for (var i = 0; i < circles.length; i++)
 {
     circles[i].style.color = colors[i];
+}
+
+function activateButton(button) {
+    if (button === activeButton) 
+    {
+        activeButton = null;
+        button.classList.remove('is-active');
+        input.style.background = "white";
+    } 
+    else 
+    {
+        if (activeButton) 
+        {
+          activeButton.classList.remove('is-active');
+        }
+
+        activeButton = button;
+        button.classList.add('is-active');
+    }  
 }
