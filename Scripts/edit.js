@@ -1,5 +1,3 @@
-
-
 const saveButton = document.getElementById('save-button');
 const destroyButton = document.getElementById('destroy-button');
 const exportButton = document.getElementById('export-button');
@@ -68,26 +66,32 @@ function saveList() {
 
     updateActiveList();
 
-    const existingList = JSON.parse(localStorage.getItem(listTitle));
+    const existingList = JSON.parse(localStorage.getItem(`list-${listTitle}`));
 
     if (existingList) 
     {
         data = existingList;
         data.version++;
+
+        data.items = data.items.map((item, index) => {
+            item.done = listData[index].done;
+            return item;
+        });
     }
 
-    localStorage.setItem(listTitle, JSON.stringify(data));
+    localStorage.setItem(`list-${listTitle}`, JSON.stringify(data));
 }
 
 function loadList() {
-    const data = JSON.parse(localStorage.getItem(activeList));
+    const data = JSON.parse(localStorage.getItem(`list-${activeList}`));
 
     if (data)
     {
-        const listTitle = data.title;
+        const listTitle = data.title;        
+        const listItems = data.items;
+
         document.getElementById('list-title').textContent = listTitle;
 
-        const listItems = data.items;
         listItems.forEach((item) => {
             const li = document.createElement('li');
             
@@ -115,7 +119,7 @@ function loadList() {
 
 function destroyList() {
     listTitle.textContent = '';
-    localStorage.removeItem(activeList);
+    localStorage.removeItem(`list-${activeList}`);
 
     const activeElements = document.querySelectorAll(`#lists-menu-items li`);
 
@@ -157,7 +161,7 @@ function exportList() {
     const data = {
         title: listTitle,
         items: listData,
-        version: listData.version,
+        version: JSON.parse(localStorage.getItem(`list-${listTitle}`)).version,
     };
 
     const jsonData = JSON.stringify(data);
@@ -170,6 +174,7 @@ function exportList() {
 
 function importList() {
     const input = document.createElement('input');
+
     input.type = 'file';
     input.accept = '.elmlist';
     input.click();
@@ -190,56 +195,82 @@ function importList() {
 
         reader.readAsText(file);
         reader.onload = (e) => {
-            const listData = JSON.parse(e.target.result);
-            const existingList = JSON.parse(localStorage.getItem(listData.title));
+            const importedList = JSON.parse(e.target.result);
+            const existingList = JSON.parse(localStorage.getItem(`list-${importedList.title}`));
 
             if (existingList) 
             {
-                if (listData.version > existingList.version) 
-                {                    
-                    localStorage.setItem(listData.title, JSON.stringify(listData));
-                }
-                else if (listData.version < existingList.version) 
+                if (existingList.version > importedList.version)
                 {
-                    if(confirm(`A newer version of the list already exists. Do you want to overwrite it?`))
+                    if (confirm('A newer version of the list already exists. Do you want to replace it?'))
                     {
-                        localStorage.setItem(listData.title, JSON.stringify(listData));
+                        replaceList(importedList, true);
                     }
-                } 
-                else 
+                }
+                else if (existingList.version < importedList.version)
                 {
-                    alert(`The list "${listData.title}" is already up to date.`);
+                    if (confirm('An older version of the list already exists. Do you want to update it?'))
+                    {
+                        replaceList(importedList, true);
+                    }
+                }
+                else
+                {
+                    alert("This list already exists. Try importing a different one.")
                 }
             }
-            
-            document.getElementById('list-title').textContent = listData.title;
-            ul.innerHTML = '';
-
-            listData.items.forEach((item) => {
-                const li = document.createElement('li');
-                
-                addListItemEvents(li);
-                
-                li.innerText = item.text;
-                li.style.background = item.background;
-
-                if (item.done)
-                {
-                    li.classList.add('done');
-                }
-
-                if (item.important)
-                {
-                    li.classList.add('important');
-                }
-
-                ul.appendChild(li);
-            });
-
-            localStorage.setItem(listData.title, JSON.stringify(listData));
-            addListToMenu(listData.title);
+            else
+            {
+                replaceList(importedList, false);
+            }
         };
     });
+}
+
+function replaceList(importedList, alreadyExists) {
+    document.getElementById('list-title').textContent = importedList.title;
+    ul.innerHTML = '';
+
+    importedList.items.forEach((item) => {
+        const li = document.createElement('li');
+        
+        addListItemEvents(li);
+        
+        li.innerText = item.text;
+        li.style.background = item.background;
+
+        if (item.done)
+        {
+            li.classList.add('done');
+        }
+
+        if (item.important)
+        {
+            li.classList.add('important');
+        }
+
+        ul.appendChild(li);
+    });
+
+    localStorage.setItem(`list-${importedList.title}`, JSON.stringify(importedList));
+    
+    if (alreadyExists)
+    {
+        const activeElements = document.querySelectorAll('#lists-menu-items li');
+
+        for (const activeElement of activeElements) 
+        {
+            if (activeElement.textContent.indexOf(`list-${importedList.title}`) !== -1) 
+            {                
+                activeElement.innerHTML = `<a href="#">${importedList.title}</a>`;
+                break;
+            }
+        }
+    }
+    else
+    {
+        addListToMenu(importedList.title);
+    }
 }
 
 function updateButtons() {
@@ -259,7 +290,7 @@ function updateActiveList() {
     if (activeList && activeList !== listTitle.innerText) 
     {
         const activeElements = document.querySelectorAll(`#lists-menu-items li`);
-        const currentListData = JSON.parse(localStorage.getItem(activeList));
+        const currentListData = JSON.parse(localStorage.getItem(`list-${activeList}`));
 
         for (const activeElement of activeElements) 
         {
@@ -270,8 +301,8 @@ function updateActiveList() {
             }
         }
 
-        localStorage.removeItem(activeList);
-        localStorage.setItem(listTitle.innerText, JSON.stringify(currentListData));
+        localStorage.removeItem(`list-${activeList}`);
+        localStorage.setItem(`list-${listTitle.innerText}`, JSON.stringify(currentListData));
         console.log("activeList: " + activeList + " listTitle: " + listTitle.innerText);
         activeList = listTitle.innerText;
         console.log("activeList: " + activeList + " listTitle: " + listTitle.innerText);
@@ -291,7 +322,7 @@ function newList() {
 function loadListFromMenu(activeListTitle) {
     console.log(activeListTitle);
 
-    const data = JSON.parse(localStorage.getItem(activeListTitle));
+    const data = JSON.parse(localStorage.getItem(`list-${activeListTitle}`));
 
     if (data)
     {
@@ -330,11 +361,13 @@ function loadLocalStorageToMenu() {
     const keys = Object.keys(localStorage);
 
     keys.forEach((key) => {
-        const li = document.createElement("li");
+        if (key.startsWith("list-"))
+        {
+            const li = document.createElement("li");
 
-        li.innerHTML = `<a href="#">${key}</a>`;
-
-        listsMenu.appendChild(li);
+            li.innerHTML = `<a href="#">${key.replace('list-', '')}</a>`;
+            listsMenu.appendChild(li);
+        }        
     });
 
     updateButtons();

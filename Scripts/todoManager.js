@@ -83,7 +83,7 @@ function addListToMenu(listTitle) {
     const li = document.createElement('li');
     
     li.innerHTML = `<a href="#">${listTitle}</a>`;
-    activeList = `${listTitle}`;
+    activeList = `list-${listTitle}`;
 
     document.querySelector('#lists-menu-items').appendChild(li);
 }
