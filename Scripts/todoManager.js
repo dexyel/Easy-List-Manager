@@ -14,12 +14,9 @@ importantButton.addEventListener('click', () => {
 
 function createListItem() {
     let li = document.createElement('li');    
-    let deleteButton = document.createElement('button');
     let gradientString = input.style.background;
 
     addListItemEvents(li);
-
-    deleteButton.classList.add("delete-button");
 
     if (gradientString)
     {
@@ -37,10 +34,9 @@ function createListItem() {
         li.classList.toggle('important');
         importantButton.classList.toggle('active');
     }
-
-    li.appendChild(document.createTextNode(input.value));
-    li.appendChild(deleteButton);
     
+    addDeleteButton(li);
+
     ul.appendChild(li);
 
     input.value = "";    
@@ -88,3 +84,29 @@ function addListToMenu(listTitle) {
     document.querySelector('#lists-menu-items').appendChild(li);
 }
 
+function deleteItem(e, li) {
+    e.stopPropagation();
+    
+    li.removeEventListener('click', () => {
+        li.classList.toggle('done');
+    });
+
+    li.classList.add('delete');
+
+    li.addEventListener('animationend', () => {
+        ul.removeChild(li);
+    })
+}
+
+function addDeleteButton(li) {
+    let deleteButton = document.createElement('button');
+
+    deleteButton.id = 'delete-button';
+    deleteButton.classList.add('fa-solid');
+    deleteButton.classList.add('fa-trash');
+
+    deleteButton.addEventListener('click', (e) => deleteItem(e, li));
+
+    li.appendChild(document.createTextNode(input.value));
+    li.appendChild(deleteButton);
+}

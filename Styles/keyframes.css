@@ -1,4 +1,4 @@
-@keyframes slideIn {
+@keyframes showInputMenu {
     from {        
         bottom: -150%;
     }
@@ -7,7 +7,7 @@
     }
 }
 
-@keyframes slideOut {
+@keyframes hideInputMenu {
     from {        
         bottom: 0;
     }
@@ -16,20 +16,24 @@
     }   
 }
 
-@keyframes fadeIn {
-    from {        
-        top: -150%;
+@keyframes showDeleteButton {
+    from {
+        right: 50px;
+        opacity: 0;
     }
-    to {        
-        top: 0;
+    to {
+        right: 30px;
+        opacity: 1;
     }
 }
 
-@keyframes fadeOut {
-    from {        
-        top: 0;
+@keyframes hideDeleteButton {
+    from {
+        right: 30px;
+        opacity: 1;
     }
-    to {        
-        top: -150%;
-    }   
+    to {
+        right: 50px;
+        opacity: 0;
+    }
 }

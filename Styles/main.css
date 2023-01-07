@@ -24,28 +24,38 @@
 }
 
 #list-container li {
+    position: relative;
     list-style: none;
     min-width: 500px;
-    max-width: fit-content;
-    height: fit-content;
+    height: 100%;
     display: flex;
     align-items: center;
     font-size: 1.25rem;
     color: rgb(var(--text));
     padding: 2rem 2rem;
-    border-radius: calc(5.25rem/2);
+    border-radius: 250px;
     margin-bottom: 1rem; 
     overflow: hidden;
-    transition: all 0.3s ease-in-out;
+    transition: background, color, width, height, padding, font-size, transform, opacity;
+    transition: 0.3s ease-in-out;
+}
+
+#list-container li.delete {
+    height: 0;
+    transform: scale(0.9);
+    padding: 0 2rem;
+    font-size: 0.5rem;
 }
 
 #list-container li.done {
-    background: rgba(101, 240, 120, 0.8) !important;
-    color: rgba(19, 19, 19, 0.5) !important;
+    background: rgba(255, 255, 255, 0.384) !important;
+    color: rgba(255, 255, 255, 0.5) !important;
     height: 1rem;
     padding: 0.5rem 2rem;
     font-size: 1rem;
-    transition: all 0.3s ease-in-out;
+    min-width: 400px;
+    transition: background, color, min-width, height, padding, font-size, transform, opacity;
+    transition: 0.3s ease-in-out;
 }
 
 #list-container li.important::before {
@@ -69,27 +79,25 @@
     transition: all 0.3s ease-in-out;  
 }
 
-#list-container li:hover .delete-button::before {
-    font-family: 'Font Awesome 6 Free';
-    font-weight: 900;
-    font-size: 1.5rem;
-    content: '\f1f8';
-    height: 0;
-    width: 0;    
+#list-container li:hover:not(.done) > #delete-button {
+    animation: showDeleteButton 0.1s ease-in-out forwards;   
 }
 
-#list-container li:hover .delete-button:hover::before {
-    color: rgba(var(--text), 1);
+#list-container li:not(:hover):not(.done) > #delete-button {
+    animation: hideDeleteButton 0.1s ease-in-out forwards;   
 }
 
-.delete-button {
-    position: relative;
-    top: -0.75rem;
-    right: -27rem;
-    width: 0;
-    height: 0;
-    background: transparent;
-    color: rgba(var(--text), 0.5);
+#delete-button {
+    position: absolute;
+    right: 50px;
+    opacity: 0;
+    background: none;
     border: none;
+    color: rgba(var(--text), 0.4);
+    font-size: 1.4rem;
     cursor: pointer;
+}
+
+#delete-button:hover {
+    color: rgba(var(--text), 1);
 }

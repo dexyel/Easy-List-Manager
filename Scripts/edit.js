@@ -28,9 +28,6 @@ listTitle.addEventListener('keydown', (e) => {
 });
 
 document.getElementById('lists-menu-items').addEventListener('click', (e) => {
-
-    console.log(e.target.innerText + " " + e.target.textContent + " " + e.target.tagName);
-
     if (e.target.tagName === "A")
     {
         activeList = e.target.innerText;
@@ -73,6 +70,17 @@ function saveList() {
         data = existingList;
         data.version++;
 
+        data.items = data.items.filter(item => {
+            return listData.some(newItem => newItem.text === item.text);
+        });
+
+        listData.forEach(newItem => {
+            if (!data.items.some(item => item.text === newItem.text))
+            {
+                data.items.push(newItem);
+            }
+        });
+
         data.items = data.items.map((item, index) => {
             item.done = listData[index].done;
             return item;
@@ -109,6 +117,8 @@ function loadList() {
             {
                 li.classList.add("important");
             }
+
+            addDeleteButton(li);
 
             ul.appendChild(li);
         });
@@ -303,9 +313,8 @@ function updateActiveList() {
 
         localStorage.removeItem(`list-${activeList}`);
         localStorage.setItem(`list-${listTitle.innerText}`, JSON.stringify(currentListData));
-        console.log("activeList: " + activeList + " listTitle: " + listTitle.innerText);
+
         activeList = listTitle.innerText;
-        console.log("activeList: " + activeList + " listTitle: " + listTitle.innerText);
     } 
     else if (!activeList && ul.children.length !== 0) 
     {
@@ -320,8 +329,6 @@ function newList() {
 }
 
 function loadListFromMenu(activeListTitle) {
-    console.log(activeListTitle);
-
     const data = JSON.parse(localStorage.getItem(`list-${activeListTitle}`));
 
     if (data)
@@ -348,6 +355,8 @@ function loadListFromMenu(activeListTitle) {
             {
                 li.classList.add("important");
             }
+
+            addDeleteButton(li);
 
             ul.appendChild(li);
         });

@@ -31,12 +31,12 @@
 }
 
 #new-container.open {
-    animation: slideIn 0.5s ease-in-out forwards;
+    animation: showInputMenu 0.5s ease-in-out forwards;
     opacity: 1;
 }
 
 #new-container.closed {
-    animation: slideOut 0.5s ease-in-out forwards;
+    animation: hideInputMenu 0.5s ease-in-out forwards;
     opacity: 0;
 }
 
