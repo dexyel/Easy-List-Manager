@@ -1,5 +1,6 @@
 const newContainer = document.getElementById('new-container');
 const newButton = document.getElementById('new-todo-button');
+
 const editContainer = document.getElementById('edit-container');
 const input = document.getElementById('todo-input');
 const circles = document.querySelectorAll('#color-buttons button');
@@ -7,6 +8,7 @@ const circles = document.querySelectorAll('#color-buttons button');
 let activeButton;
 
 newButton.addEventListener('click', toggleMenu);
+
 
 for (var i = 0; i < circles.length; i++) 
 {

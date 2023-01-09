@@ -36,6 +36,15 @@ document.getElementById('lists-menu-items').addEventListener('click', (e) => {
     }
 });
 
+if (activeList === "")
+{
+    destroyButton.classList.add('disabled');
+}
+else
+{
+    destroyButton.classList.remove('disabled');
+}
+
 function saveList() {
     const listTitle = document.getElementById('list-title').innerText;
     const listItems = document.querySelectorAll(' #list-container ul li');
@@ -288,11 +297,13 @@ function updateButtons() {
     {
         saveButton.classList.add("disabled");
         exportButton.classList.add("disabled");
+        destroyButton.classList.add('disabled');
     }
     else
     {
         saveButton.classList.remove("disabled");
         exportButton.classList.remove("disabled");
+        destroyButton.classList.remove('disabled');
     }
 }
 

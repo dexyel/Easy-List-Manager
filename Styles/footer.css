@@ -8,8 +8,8 @@
     justify-content: flex-end;
     align-items: center;
     padding: 1rem;
-    z-index: 100;
     background: linear-gradient(to top, rgb(var(--background)) 0% 75%, transparent 100%);
+    z-index: 200;
 }
 
 #footer-container button {
@@ -27,16 +27,16 @@
     bottom: -100%;
     opacity: 0;
     transform: translateX(-50%);
-    transition: opacity 0.5s ease-in-out;
+    transition: opacity 0.5s ease-in-out, bottom 0.5s ease-in-out;
 }
 
 #new-container.open {
-    animation: showInputMenu 0.5s ease-in-out forwards;
+    bottom: 0;
     opacity: 1;
 }
 
 #new-container.closed {
-    animation: hideInputMenu 0.5s ease-in-out forwards;
+    bottom: -100%;
     opacity: 0;
 }
 
@@ -119,7 +119,6 @@
 .fa-circle-plus {
     font-size: 4rem;
     color: rgb(var(--color4));
-    z-index: 100;
     transition: filter 0.3s ease, transform 0.05s ease-in-out;
 }
 

@@ -8,8 +8,8 @@
     justify-content: space-between;
     align-items: center;
     padding: 1rem;
-    z-index: 100;
     background: linear-gradient(to bottom, rgb(var(--background)) 0% 75%, transparent 100%);
+    z-index: 200;
 }
 
 #title {
@@ -17,32 +17,4 @@
     position: fixed;
     left: 50%;
     transform: translateX(-50%);
-}
-
-#header-container button {
-    position: fixed;
-    right: 2rem;  
-    font-size: 2rem;
-    background: transparent;
-    border: none;
-}
-
-.fa-circle-user {
-    color: rgb(var(--text));
-    cursor: pointer;
-    transition: color 0.3s ease-in-out, border 0.3s ease-in-out;
-    padding: 4px;
-}
-
-.fa-circle-user {    
-    border: solid 3px transparent;
-    border-radius: 50%;    
-}
-
-.fa-circle-user:hover {
-    border: solid 3px rgb(var(--text));
-}
-
-#header-container button:active > .fa-circle-user {
-    filter: opacity(80%);
 }

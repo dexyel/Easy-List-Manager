@@ -23,20 +23,5 @@ body {
     overflow: auto;
     overflow-y: hidden;
     box-sizing: border-box;
-}
-
-h1 {
-    font-size: 3rem;
-    color: rgb(var(--text));
-}
-
-.center-line {
-    width: 1px;
-    height: 100%;
-    background-color: red;
-    position: absolute;
-    top: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 1000;
+    z-index: 0;
 }
