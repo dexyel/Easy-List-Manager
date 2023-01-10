@@ -1,0 +1,42 @@
+#calendar-app {
+    width: 250px;
+    aspect-ratio: 1;
+    background: rgba(var(--text), 0.8);
+    position: absolute;
+    top: -300px;
+    transform: translateX(-25%);
+    border-radius: 15px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+    padding: 1rem;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+}
+
+#calendar-app.modal {
+    opacity: 1;
+}
+
+#calendar-controls {
+    display: flex;
+    flex: 1;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+#calendar-controls button:not(#reset-date) {
+    font-size: 1.25rem;
+}
+
+#calendar-days-letters {
+    display: flex;
+    flex: 1;
+    justify-content: space-evenly;
+}
+
+#calendar-picked-date {
+    position: absolute;
+    bottom: -50px;
+    right: 30px;
+    color: rgb(var(--text));
+}

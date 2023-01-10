@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="./Styles/edit.css">
     <link rel="stylesheet" href="./Styles/footer.css">
     <link rel="stylesheet" href="./Styles/keyframes.css">
+    <link rel="stylesheet" href="./Styles/calendar.css">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -22,8 +23,13 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body>
+    <h1 id="title-background" class="visible">
+        <span class="initials">E</span>asy
+        <span class="initials">L</span>ist
+        <span class="initials">M</span>anager
+    </h1>
     <header>
-        <div id="header-container">
+        <div id="header-container" class="hidden">
             <h1 id="title">
                 <span class="initials">E</span>asy
                 <span class="initials">L</span>ist
@@ -80,7 +86,7 @@
             </div>
         </div>
 
-        <div id="list-container">
+        <div id="list-container" class="hidden">
             <ul></ul>
         </div>
     </div>
@@ -110,11 +116,50 @@
                     <input id="todo-input" type="text" placeholder="New...">
                     <button id="enter-button">
                         <i class="fa-solid fa-check"></i>
-                    </button>
+                    </button>                    
+                </div>
 
+                <div id="input-options-container">
                     <button id="important-button" >
                         <i class="fa-solid fa-triangle-exclamation"></i>
-                    </button>                   
+                    </button>
+                    
+                    <button id="calendar-button">
+                        <i class="fa-solid fa-calendar-days"></i>
+                    </button>
+
+                    <div id="calendar-app">
+                        <div id="calendar-controls">
+                            <button id="previous-year">
+                                <i class="fa-solid fa-angles-left"></i>
+                            </button>
+                            <button id="previous-month">
+                                <i class="fa-solid fa-angle-left"></i>
+                            </button>
+                            <button id="reset-date">JAN 2023</button>
+                            <button id="next-month">
+                                <i class="fa-solid fa-angle-right"></i>
+                            </button>
+                            <button id="next-year">
+                                <i class="fa-solid fa-angles-right"></i>
+                            </button>
+                        </div>
+                        <div id="calendar-days-letters">
+                            <p>L</p>
+                            <p>M</p>
+                            <p>M</p>
+                            <p>J</p>
+                            <p>V</p>
+                            <p>S</p>
+                            <p>D</p>
+                        </div>
+                        <div id="calendar-days-numbers">
+                            
+                        </div>
+                        <div id="calendar-picked-date">
+                            <span id="picked-day">JJ</span#>/<span id="picked-day">MM</span#>/<span id="picked-day">AA</span#>
+                        </div>
+                    </div>
                 </div>
                
             </div>
@@ -130,5 +175,6 @@
     <script src="./Scripts/menu.js"></script>
     <script src="./Scripts/todoManager.js"></script>
     <script src="./Scripts/edit.js"></script>
+    <script src="./Scripts/calendar.js"></script>
 </body>
 </html>

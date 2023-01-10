@@ -9,7 +9,19 @@
     align-items: center;
     padding: 1rem;
     background: linear-gradient(to bottom, rgb(var(--background)) 0% 75%, transparent 100%);
+    opacity: 0;
     z-index: 200;
+    transition: opacity 0.5s ease-in-out;
+}
+
+#header-container.visible {
+    opacity: 1;
+    pointer-events: initial;
+}
+
+#header-container.hidden {
+    opacity: 0;
+    pointer-events: none;
 }
 
 #title {

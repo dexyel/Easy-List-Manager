@@ -1,9 +1,11 @@
 const newContainer = document.getElementById('new-container');
 const newButton = document.getElementById('new-todo-button');
-
 const editContainer = document.getElementById('edit-container');
+const headerContainer = document.getElementById('header-container');
+const listContainer = document.getElementById('list-container');
 const input = document.getElementById('todo-input');
 const circles = document.querySelectorAll('#color-buttons button');
+const backgroundTitle = document.getElementById('title-background');
 
 let activeButton;
 
@@ -27,6 +29,9 @@ function toggleMenu() {
     {
         newContainer.classList.replace('open', 'closed');
         editContainer.classList.replace('visible', 'hidden');
+        headerContainer.classList.replace('visible', 'hidden');
+        listContainer.classList.replace('visible', 'hidden');
+        backgroundTitle.classList.replace('hidden', 'visible');
         icon.style.transform = 'rotateZ(0)';
         
         setTimeout(() => {
@@ -38,6 +43,9 @@ function toggleMenu() {
     {
         newContainer.classList.replace('closed', 'open');
         editContainer.classList.replace('hidden', 'visible');
+        headerContainer.classList.replace('hidden', 'visible');
+        listContainer.classList.replace('hidden', 'visible');
+        backgroundTitle.classList.replace('visible', 'hidden');
         icon.style.transform = 'rotateZ(45deg)';
     }
 }

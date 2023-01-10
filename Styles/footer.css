@@ -16,6 +16,22 @@
     background: transparent;
     border: none;
     cursor: pointer;
+    margin: 0;
+    padding: 0;
+}
+
+.fa-circle-plus {
+    font-size: 4rem;
+    color: rgb(var(--color4));
+    transition: filter 0.3s ease, transform 0.05s ease-in-out;
+}
+
+.fa-circle-plus:hover {
+    filter: brightness(85%);
+}
+
+.fa-circle-plus:active {
+    filter: brightness(115%);
 }
 
 #new-container {
@@ -24,9 +40,8 @@
     justify-content: center;
     align-items: center;
     position: absolute;
-    bottom: -100%;
+    transform: translateX(-45%) translateY(-25%);
     opacity: 0;
-    transform: translateX(-50%);
     transition: opacity 0.5s ease-in-out, bottom 0.5s ease-in-out;
 }
 
@@ -55,7 +70,9 @@
     padding: 4px;
 }
 
-.fa-circle:hover, .fa-circle:active, .fa-circle.is-active {
+.fa-circle:hover,
+.fa-circle:active,
+.fa-circle.is-active {
     border: solid 4px currentColor;
     border-radius: 50%;
 }
@@ -99,33 +116,41 @@
     transform: scale(1) rotateZ(5deg); 
 }
 
-#important-button {
-    width: 20px;
-    margin: 20px auto;
+#input-options-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-left: 2rem;
+}
+
+#important-button,
+#calendar-button {
     font-size: 2rem;
     cursor: pointer;
     color: rgba(var(--text), 0.4);
     transition: color 0.3s ease;
 }
 
+#calendar-button {
+    transform: translateX(20px) translateY(-2px);
+}
+
+#calendar-button.calendar-active {
+    color: rgba(var(--text), 1);
+}
+
 #important-button:hover {
     color: rgba(245, 100, 100, 0.5);
 }
 
+#calendar-button:hover {
+    color: rgba(var(--text), 1)
+}
+
+#calendar-button:active {
+    filter: opacity(70%);
+}
+
 #important-button.active {
     color: rgb(245, 100, 100);
-}
-
-.fa-circle-plus {
-    font-size: 4rem;
-    color: rgb(var(--color4));
-    transition: filter 0.3s ease, transform 0.05s ease-in-out;
-}
-
-.fa-circle-plus:hover {
-    filter: brightness(85%);
-}
-
-.fa-circle-plus:active {
-    filter: brightness(115%);
 }
