@@ -33,7 +33,7 @@
     pointer-events: none;
     padding: 1rem;
     position: absolute;
-    transform: translate(-20%, -70%);
+    transform: translate(-20%, -65%);
 }
 
 #calendar-app.modal {
