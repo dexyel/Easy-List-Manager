@@ -130,20 +130,24 @@
 
                     <div id="calendar-app">
                         <div id="calendar-controls">
-                            <button id="previous-year">
+                            <button id="previous-year-button">
                                 <i class="fa-solid fa-angles-left"></i>
                             </button>
-                            <button id="previous-month">
+                            <button id="previous-month-button">
                                 <i class="fa-solid fa-angle-left"></i>
                             </button>
-                            <button id="reset-date">JAN 2023</button>
-                            <button id="next-month">
+                            <button id="reset-date-button">
+                                <span id="month-text"></span>
+                                <span id="year-text"></span>
+                            </button>
+                            <button id="next-month-button">
                                 <i class="fa-solid fa-angle-right"></i>
                             </button>
-                            <button id="next-year">
+                            <button id="next-year-button">
                                 <i class="fa-solid fa-angles-right"></i>
                             </button>
                         </div>
+
                         <div id="calendar-days-letters">
                             <p>L</p>
                             <p>M</p>
@@ -153,11 +157,14 @@
                             <p>S</p>
                             <p>D</p>
                         </div>
-                        <div id="calendar-days-numbers">
-                            
-                        </div>
+
+                        <div id="calendar-days-numbers"></div>
+
                         <div id="calendar-picked-date">
-                            <span id="picked-day">JJ</span#>/<span id="picked-day">MM</span#>/<span id="picked-day">AA</span#>
+                            <div id="date-text"></div>
+                            <button id="delete-date-button">
+                                <i class="fa-solid fa-xmark"></i>
+                            </button>
                         </div>
                     </div>
                 </div>

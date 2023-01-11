@@ -12,8 +12,7 @@ let activeButton;
 newButton.addEventListener('click', toggleMenu);
 
 
-for (var i = 0; i < circles.length; i++) 
-{
+for (var i = 0; i < circles.length; i++) {
     circles[i].addEventListener('click', (function(index) {        
         return function() {
             input.style.background = `linear-gradient(to right, ${colors[index]} 7%, white 0%)`;
@@ -25,8 +24,7 @@ for (var i = 0; i < circles.length; i++)
 function toggleMenu() {
     const icon = newButton.firstElementChild;
 
-    if (newContainer.classList.contains('open'))
-    {
+    if (newContainer.classList.contains('open')) {
         newContainer.classList.replace('open', 'closed');
         editContainer.classList.replace('visible', 'hidden');
         headerContainer.classList.replace('visible', 'hidden');
@@ -39,8 +37,7 @@ function toggleMenu() {
         }, 200);
         
     }
-    else
-    {
+    else {
         newContainer.classList.replace('closed', 'open');
         editContainer.classList.replace('hidden', 'visible');
         headerContainer.classList.replace('hidden', 'visible');
@@ -50,22 +47,18 @@ function toggleMenu() {
     }
 }
 
-for (var i = 0; i < circles.length; i++)
-{
+for (var i = 0; i < circles.length; i++) {
     circles[i].style.color = colors[i];
 }
 
 function activateButton(button) {
-    if (button === activeButton) 
-    {
+    if (button === activeButton) {
         activeButton = null;
         button.classList.remove('is-active');
         input.style.background = "white";
     } 
-    else 
-    {
-        if (activeButton) 
-        {
+    else {
+        if (activeButton) {
           activeButton.classList.remove('is-active');
         }
 

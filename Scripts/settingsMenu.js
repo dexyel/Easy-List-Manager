@@ -4,12 +4,10 @@ const settingsContainer = document.getElementById('settings-container');
 settingsButton.addEventListener('click', openSettings);
 
 function openSettings() {
-    if (settingsContainer.classList.contains('open'))
-    {
+    if (settingsContainer.classList.contains('open')) {
         settingsContainer.classList.replace('open', 'closed');
     }
-    else
-    {
+    else {
         settingsContainer.classList.replace('closed', 'open');
     }
 }

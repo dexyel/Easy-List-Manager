@@ -4,6 +4,7 @@ const exportButton = document.getElementById('export-button');
 const importButton = document.getElementById('import-button');
 const newListButton = document.getElementById('new-list-button');
 const listTitle = document.getElementById('list-title');
+const listMenu = document.getElementById('lists-menu-items');
 
 saveButton.addEventListener('click', saveList);
 destroyButton.addEventListener('click', destroyList);
@@ -20,28 +21,23 @@ listTitle.addEventListener('input', () => {
 });
 
 listTitle.addEventListener('keydown', (e) => {
-    if (e.key === 'Enter')
-    {
+    if (e.key === 'Enter') {
         e.preventDefault();
         updateActiveList();
     }
 });
 
-document.getElementById('lists-menu-items').addEventListener('click', (e) => {
-    if (e.target.tagName === "A")
-    {
-        activeList = e.target.innerText;
-        
+listMenu.addEventListener('click', (e) => {
+    if (e.target.tagName === "A") {
+        activeList = e.target.innerText;        
         loadListFromMenu(activeList);
     }
 });
 
-if (activeList === "")
-{
+if (activeList === "") {
     destroyButton.classList.add('disabled');
 }
-else
-{
+else {
     destroyButton.classList.remove('disabled');
 }
 
@@ -74,8 +70,7 @@ function saveList() {
 
     const existingList = JSON.parse(localStorage.getItem(`list-${listTitle}`));
 
-    if (existingList) 
-    {
+    if (existingList) {
         data = existingList;
         data.version++;
 
@@ -84,8 +79,7 @@ function saveList() {
         });
 
         listData.forEach(newItem => {
-            if (!data.items.some(item => item.text === newItem.text))
-            {
+            if (!data.items.some(item => item.text === newItem.text)) {
                 data.items.push(newItem);
             }
         });
@@ -102,8 +96,7 @@ function saveList() {
 function loadList() {
     const data = JSON.parse(localStorage.getItem(`list-${activeList}`));
 
-    if (data)
-    {
+    if (data) {
         const listTitle = data.title;        
         const listItems = data.items;
 
@@ -117,13 +110,11 @@ function loadList() {
             li.innerText = item.text;
             li.style.background = item.background;
             
-            if (item.done)
-            {
+            if (item.done) {
                 li.classList.add("done");
             }
 
-            if (item.important)
-            {
+            if (item.important) {
                 li.classList.add("important");
             }
 
@@ -143,15 +134,13 @@ function destroyList() {
     const activeElements = document.querySelectorAll(`#lists-menu-items li`);
 
     for (const activeElement of activeElements) {
-        if (activeElement.textContent.indexOf(activeList) !== -1) 
-        {
+        if (activeElement.textContent.indexOf(activeList) !== -1) {
             activeElement.remove();
             break;
         }
     }
 
-    while (ul.firstChild)
-    {
+    while (ul.firstChild) {
         ul.removeChild(ul.firstChild);
     }
     
@@ -201,12 +190,10 @@ function importList() {
     input.addEventListener('change', (e) => {
         const file = e.target.files[0];
 
-        if (!file) 
-        {
+        if (!file) {
             alert('Please select a file');
         } 
-        else if (file.name.slice(-7) !== 'elmlist') 
-        {
+        else if (file.name.slice(-7) !== 'elmlist') {
             alert('The file must have a .elmlist extension');
         }
 
@@ -217,29 +204,22 @@ function importList() {
             const importedList = JSON.parse(e.target.result);
             const existingList = JSON.parse(localStorage.getItem(`list-${importedList.title}`));
 
-            if (existingList) 
-            {
-                if (existingList.version > importedList.version)
-                {
-                    if (confirm('A newer version of the list already exists. Do you want to replace it?'))
-                    {
+            if (existingList) {
+                if (existingList.version > importedList.version) {
+                    if (confirm('A newer version of the list already exists. Do you want to replace it?')) {
                         replaceList(importedList, true);
                     }
                 }
-                else if (existingList.version < importedList.version)
-                {
-                    if (confirm('An older version of the list already exists. Do you want to update it?'))
-                    {
+                else if (existingList.version < importedList.version) {
+                    if (confirm('An older version of the list already exists. Do you want to update it?')) {
                         replaceList(importedList, true);
                     }
                 }
-                else
-                {
+                else {
                     alert("This list already exists. Try importing a different one.")
                 }
             }
-            else
-            {
+            else {
                 replaceList(importedList, false);
             }
         };
@@ -258,13 +238,11 @@ function replaceList(importedList, alreadyExists) {
         li.innerText = item.text;
         li.style.background = item.background;
 
-        if (item.done)
-        {
+        if (item.done) {
             li.classList.add('done');
         }
 
-        if (item.important)
-        {
+        if (item.important) {
             li.classList.add('important');
         }
 
@@ -273,34 +251,28 @@ function replaceList(importedList, alreadyExists) {
 
     localStorage.setItem(`list-${importedList.title}`, JSON.stringify(importedList));
     
-    if (alreadyExists)
-    {
+    if (alreadyExists) {
         const activeElements = document.querySelectorAll('#lists-menu-items li');
 
-        for (const activeElement of activeElements) 
-        {
-            if (activeElement.textContent.indexOf(`list-${importedList.title}`) !== -1) 
-            {                
+        for (const activeElement of activeElements) {
+            if (activeElement.textContent.indexOf(`list-${importedList.title}`) !== -1) {                
                 activeElement.innerHTML = `<a href="#">${importedList.title}</a>`;
                 break;
             }
         }
     }
-    else
-    {
+    else {
         addListToMenu(importedList.title);
     }
 }
 
 function updateButtons() {
-    if (listTitle.textContent.trim() === '' || ul.children.length === 0)
-    {
+    if (listTitle.textContent.trim() === '' || ul.children.length === 0) {
         saveButton.classList.add("disabled");
         exportButton.classList.add("disabled");
         destroyButton.classList.add('disabled');
     }
-    else
-    {
+    else {
         saveButton.classList.remove("disabled");
         exportButton.classList.remove("disabled");
         destroyButton.classList.remove('disabled');
@@ -308,15 +280,12 @@ function updateButtons() {
 }
 
 function updateActiveList() {
-    if (activeList && activeList !== listTitle.innerText) 
-    {
+    if (activeList && activeList !== listTitle.innerText) {
         const activeElements = document.querySelectorAll(`#lists-menu-items li`);
         const currentListData = JSON.parse(localStorage.getItem(`list-${activeList}`));
 
-        for (const activeElement of activeElements) 
-        {
-            if (activeElement.textContent.indexOf(activeList) !== -1) 
-            {                
+        for (const activeElement of activeElements) {
+            if (activeElement.textContent.indexOf(activeList) !== -1) {                
                 activeElement.innerHTML = `<a href="#">${listTitle.innerText}</a>`;
                 break;
             }
@@ -327,8 +296,7 @@ function updateActiveList() {
 
         activeList = listTitle.innerText;
     } 
-    else if (!activeList && ul.children.length !== 0) 
-    {
+    else if (!activeList && ul.children.length !== 0) {
         addListToMenu(listTitle.innerText);
     }
 }
@@ -342,8 +310,7 @@ function newList() {
 function loadListFromMenu(activeListTitle) {
     const data = JSON.parse(localStorage.getItem(`list-${activeListTitle}`));
 
-    if (data)
-    {
+    if (data) {
         listTitle.textContent = activeListTitle;
         ul.innerHTML = "";
 
@@ -357,13 +324,11 @@ function loadListFromMenu(activeListTitle) {
             li.innerText = item.text;
             li.style.background = item.background;
 
-            if (item.done)
-            {
+            if (item.done) {
                 li.classList.add("done");
             }
 
-            if (item.important)
-            {
+            if (item.important) {
                 li.classList.add("important");
             }
 
@@ -381,8 +346,7 @@ function loadLocalStorageToMenu() {
     const keys = Object.keys(localStorage);
 
     keys.forEach((key) => {
-        if (key.startsWith("list-"))
-        {
+        if (key.startsWith("list-")) {
             const li = document.createElement("li");
 
             li.innerHTML = `<a href="#">${key.replace('list-', '')}</a>`;

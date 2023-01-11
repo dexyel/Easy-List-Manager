@@ -18,15 +18,13 @@ function createListItem() {
 
     addListItemEvents(li);
 
-    if (gradientString)
-    {
+    if (gradientString) {
         let colorRegex = /^linear-gradient\(to right, (.*?) /;
         let color = gradientString.match(colorRegex)[1];    
         
         li.style.background = color;
     }
-    else
-    {
+    else {
         li.style.background = 'rgba(255, 255, 255, 0.3)';
     }
 
@@ -43,15 +41,13 @@ function createListItem() {
 }
 
 function addItemOnClick() {
-    if (input.value.length > 0)
-    {
+    if (input.value.length > 0) {
         createListItem();
     }
 }
 
 function addItemOnEnter(event) {
-    if (input.value.length > 0 && event.keyCode === 13)
-    {
+    if (input.value.length > 0 && event.keyCode === 13) {
         createListItem();
     }
 }
