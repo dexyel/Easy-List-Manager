@@ -1,20 +1,15 @@
-const calendarButton = document.getElementById('calendar-button');
-const calendarApp = document.getElementById('calendar-app');
-const calendarGrid = document.getElementById('calendar-days-numbers');
 
+const calendarGrid = document.getElementById('calendar-days-numbers');
 const nextMonthButton = document.getElementById('next-month-button');
 const previousMonthButton = document.getElementById('previous-month-button');
 const nextYearButton = document.getElementById('next-year-button');
 const previousYearButton = document.getElementById('previous-year-button');
 const resetDateButton = document.getElementById('reset-date-button');
-
 const monthText = document.getElementById('month-text');
 const yearText = document.getElementById('year-text');
-
 const pickedDate = document.getElementById('calendar-picked-date');
 const pickedDateText = document.getElementById('date-text');
 const deletePickedDate = document.getElementById('delete-date-button');
-
 const currentDate = new Date();
 const monthsList = ["JAN.", "FEV.", "MAR.", "AVR.", "MAI", "JUIN", "JUI.", "AOUT", "SEP.", "OCT.", "NOV.", "DEC."];
 
@@ -35,8 +30,7 @@ function openCalendar() {
     if (calendarModal.classList.contains('modal')) {
         calendarModal.classList.toggle('modal');
         calendarButton.classList.toggle('calendar-active');
-    }
-    else {
+    } else {
         calendarModal.classList.toggle('modal');
         calendarButton.classList.toggle('calendar-active');
     }
@@ -45,6 +39,7 @@ function openCalendar() {
 }
 
 function generateCalendar() {
+    let i;
     calendarGrid.innerHTML = "";
 
     const firstDay = new Date(currentYear, currentMonth, 1);
@@ -52,20 +47,20 @@ function generateCalendar() {
     const firstDayWeek = (firstDay.getDay() + 6) % 7;
     const lastDayWeek = lastDay.getDay();
 
-    for (var i = 0; i < firstDayWeek; i++) {
-        const day = document.createElement('button');        
+    for (i = 0; i < firstDayWeek; i++) {
+        const day = document.createElement('button');
         day.setAttribute('disabled', 'true');
         calendarGrid.appendChild(day);
     }
 
-    for (var i = 1; i <= lastDay.getDate(); i++) {
+    for (i = 1; i <= lastDay.getDate(); i++) {
         const day = document.createElement('button');
         day.addEventListener('click', (e) => pickDate(e));
         day.innerText = i;
         calendarGrid.appendChild(day);
     }
 
-    for (var i = 0; i < (6 - lastDayWeek); i++) {
+    for (i = 0; i < (6 - lastDayWeek); i++) {
         const day = document.createElement('button');
         day.setAttribute('disabled', 'true');
         calendarGrid.appendChild(day);
@@ -78,7 +73,7 @@ function generateCalendar() {
 function nextMonth() {
     currentMonth++;
 
-    if (currentMonth >= 11){
+    if (currentMonth >= 11) {
         currentYear++;
         currentMonth = 0;
     }
@@ -89,7 +84,7 @@ function nextMonth() {
 function previousMonth() {
     currentMonth--;
 
-    if (currentMonth < 0){
+    if (currentMonth < 0) {
         currentYear--;
         currentMonth = 11;
     }
@@ -98,7 +93,7 @@ function previousMonth() {
 }
 
 function nextYear() {
-    currentYear ++;
+    currentYear++;
     generateCalendar();
 }
 

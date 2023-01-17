@@ -1,19 +1,19 @@
 @keyframes showInputMenu {
-    from {        
+    from {
         bottom: -150%;
     }
-    to {        
+    to {
         bottom: 0;
     }
 }
 
 @keyframes hideInputMenu {
-    from {        
+    from {
         bottom: 0;
     }
-    to {        
+    to {
         bottom: -150%;
-    }   
+    }
 }
 
 @keyframes showDeleteButton {

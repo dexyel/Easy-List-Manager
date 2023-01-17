@@ -3,13 +3,13 @@
     right: -20%;
     height: 100vh;
     width: 20%;
-    background: rgb(var(--color4));
+    background: rgba(0, 0, 0, 0.7);
     z-index: 300;
     transition: right 0.3s ease-in-out;
 }
 
 #settings-container.open {
-    right: 0%;
+    right: 0;
 }
 
 #settings-container.closed {
@@ -19,21 +19,10 @@
 #settings-button {
     position: fixed;
     top: 2rem;
-    right: 2rem;  
+    right: 2rem;
     font-size: 2rem;
     background: transparent;
-    border: none;    
-}
-
-.fa-gear {    
-    color: rgba(var(--text), 0.4);
-    cursor: pointer;
-    transition: transform 0.2s ease-in-out, color 0.3s ease-in-out;
-}
-
-.fa-gear:hover {
-    color: rgb(var(--text));
-    transform: rotateZ(60deg);
+    border: none;
 }
 
 #settings-button:active > .fa-gear {
@@ -51,4 +40,34 @@
     color: rgb(var(--text));
     font-weight: 400;
     margin-top: 2rem;
+}
+
+#label-settings h3 {
+    font-weight: 400;
+    margin-bottom: 2rem;
+}
+
+#label-settings div {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1.25rem;
+    margin-left: 1rem;
+    color:rgba(var(--text), 1)
+}
+
+#label-settings div i {
+    font-size: 1.25rem;
+    margin-right: 20px;
+    border-radius: 50%;
+}
+
+.fa-gear {
+    color: rgba(var(--text), 0.4);
+    cursor: pointer;
+    transition: transform 0.2s ease-in-out, color 0.3s ease-in-out;
+}
+
+.fa-gear:hover {
+    color: rgb(var(--text));
+    transform: rotateZ(60deg);
 }

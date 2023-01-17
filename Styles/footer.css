@@ -20,20 +20,6 @@
     padding: 0;
 }
 
-.fa-circle-plus {
-    font-size: 4rem;
-    color: rgb(var(--color4));
-    transition: filter 0.3s ease, transform 0.05s ease-in-out;
-}
-
-.fa-circle-plus:hover {
-    filter: brightness(85%);
-}
-
-.fa-circle-plus:active {
-    filter: brightness(115%);
-}
-
 #new-container {
     display: flex;
     flex: 1;
@@ -57,28 +43,25 @@
 
 #color-buttons {
     margin-right: 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex: 1;
+    gap: 10px;
 }
 
-#color-buttons button {
-    margin-right: 0.25rem;
-}
-
-.fa-circle {
+#color-buttons .fa-circle {
     font-size: 1.5rem;
-    border: solid 4px transparent;
+    border: 4px solid transparent;
     border-radius: 50%;
     padding: 4px;
 }
 
-.fa-circle:hover,
-.fa-circle:active,
-.fa-circle.is-active {
+#color-buttons .fa-circle:hover,
+#color-buttons .fa-circle:active,
+#color-buttons .fa-circle.is-active {
     border: solid 4px currentColor;
     border-radius: 50%;
-}
-
-.fa-circle:active {
-    filter: brightness(115%);
 }
 
 #input-container {
@@ -90,15 +73,32 @@
     border-radius: 25px;
     min-width: 550px;
     height: 15px;
-    padding: 1rem;
-    padding-left: 3.5rem;
+    padding: 1rem 1rem 1rem 3.5rem;
     margin-right: 1rem;
     border: none;
     font-size: 1.1rem;
 }
 
-#enter-button {
-    margin-right: 3rem;
+#input-options-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-left: 2rem;
+}
+
+#important-button,
+#calendar-button {
+    font-size: 2rem;
+    color: rgba(var(--text), 0.4);
+    transition: color 0.3s ease;
+}
+
+#important-button:hover {
+    color: rgba(245, 100, 100, 0.5);
+}
+
+#important-button.active {
+    color: rgb(245, 100, 100);
 }
 
 .fa-check {
@@ -113,27 +113,19 @@
 }
 
 .fa-check:active {
-    transform: scale(1) rotateZ(5deg); 
+    transform: scale(1) rotateZ(5deg);
 }
 
-#input-options-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-left: 2rem;
+.fa-circle-plus {
+    font-size: 4rem;
+    color: rgb(var(--color4));
+    transition: filter 0.3s ease, transform 0.05s ease-in-out;
 }
 
-#important-button {
-    font-size: 2rem;
-    cursor: pointer;
-    color: rgba(var(--text), 0.4);
-    transition: color 0.3s ease;
+.fa-circle-plus:hover {
+    filter: brightness(85%);
 }
 
-#important-button:hover {
-    color: rgba(245, 100, 100, 0.5);
-}
-
-#important-button.active {
-    color: rgb(245, 100, 100);
+.fa-circle-plus:active {
+    filter: brightness(115%);
 }

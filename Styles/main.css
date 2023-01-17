@@ -1,12 +1,31 @@
-h1 {
-    font-size: 3rem;
-    color: rgb(var(--text));
+#title-background {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translateY(-100%) translateX(-50%) scale(1);
+    margin: 0;
+    padding: 0;
+    font-size: 6rem;
+    opacity: 1;
+    transition: filter 0.5s ease-in-out, transform 0.5s ease-in-out;
+}
+
+#title-background.visible {
+    filter: none;
+    opacity: 1;
+    transform: translateY(-100%) translateX(-50%) scale(1);
+}
+
+#title-background.hidden {
+    filter: blur(20px);
+    opacity: 0.5;
+    transform: translateY(-100%) translateX(-50%) scale(4);
 }
 
 #main-container {
     position: fixed;
     top: 0;
-    right:0;
+    right: 0;
     bottom: 0;
     left: 0;
     overflow: auto;
@@ -40,10 +59,9 @@ h1 {
     color: rgb(var(--text));
     padding: 2rem 2rem;
     border-radius: 250px;
-    margin-bottom: 1rem; 
-    overflow: hidden;
+    margin-bottom: 1rem;
     transform: scaleX(1);
-    transition: background, color, width, height, padding, font-size, transform, opacity;
+    transition-property: background, color, width, height, padding, font-size, transform, opacity;
     transition: 0.3s ease-in-out;
 }
 
@@ -51,6 +69,7 @@ h1 {
     opacity: 0;
     transition: display 0.5s ease, opacity 0.5s ease-in-out;
 }
+
 #list-container.visible {
     opacity: 1;
 }
@@ -73,12 +92,12 @@ h1 {
     padding: 0.5rem 2rem;
     font-size: 1rem;
     transform: scaleX(0.9);
-    transition: background, color, height, padding, font-size, transform, opacity;
+    transition-property: background, color, height, padding, font-size, transform, opacity;
     transition: 0.3s ease-in-out;
 }
 
 #list-container li.important::before {
-    font-family: 'Font Awesome 6 Free';
+    font-family: 'Font Awesome 6 Free', serif;
     font-weight: 900;
     font-size: 8rem;
     width: 0;
@@ -88,28 +107,37 @@ h1 {
     left: -2rem;
     top: -4rem;
     color: rgba(0, 0, 0, 0.15);
-    transition: all 0.3s ease-in-out;  
+    transition: all 0.3s ease-in-out;
 }
 
 #list-container li.done.important::before {
     font-size: 3rem;
     left: -1.5rem;
     top: -1.7rem;
-    transition: all 0.3s ease-in-out;  
+    transition: all 0.3s ease-in-out;
 }
 
-#list-container li:hover:not(.done) > #delete-button {
-    animation: showDeleteButton 0.1s ease-in-out forwards;   
+#list-container li:hover:not(.done) > #delete-button,
+#list-container li:hover:not(.done) > #info-button {
+    animation: showDeleteButton 0.1s ease-in-out forwards;
 }
 
-#list-container li:not(:hover):not(.done) > #delete-button {
-    animation: hideDeleteButton 0.1s ease-in-out forwards;   
+#list-container li:not(:hover):not(.done) > #delete-button,
+#list-container li:not(:hover):not(.done) > #info-button {
+    animation: hideDeleteButton 0.1s ease-in-out forwards;
 }
 
-#list-container li.done > #delete-button {
+#list-container li.done > #delete-button,
+#list-container li.done > #infos-button,
+#list-container li.done > #infos-modal {
     pointer-events: none;
 }
 
+#list-container li.done > #infos-modal {
+    opacity: 0;
+}
+
+#info-button,
 #delete-button {
     position: absolute;
     right: 50px;
@@ -121,6 +149,41 @@ h1 {
     cursor: pointer;
 }
 
+#info-button {
+    transform: translateX(-2rem);
+}
+
+#info-button:hover,
 #delete-button:hover {
     color: rgba(var(--text), 1);
+}
+
+#infos-modal {
+    width: 200px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    position: absolute;
+    top: 50%;
+    right: -15rem;
+    transform: translateY(-50%);
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+    border-left: 1px solid rgba(var(--text), 0.4);
+    padding-left: 1rem;
+    font-size: 1rem;
+}
+
+#infos-modal.visible {
+    opacity: 1;
+}
+
+#label-modal {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.fa-circle:active {
+    filter: brightness(115%);
 }

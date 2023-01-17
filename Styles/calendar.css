@@ -21,7 +21,7 @@
     filter: opacity(70%);
 }
 
-#calendar-app { 
+#calendar-app {
     width: 250px;
     height: 250px;
     background: rgba(var(--text), 0.8);
@@ -90,7 +90,7 @@
 }
 
 #day-button {
-    background:rgba(var(--color4), 0.8);    
+    background: rgba(var(--color4), 0.8);
     width: 28px;
     aspect-ratio: 1;
 }
@@ -99,8 +99,8 @@
     color: rgb(var(--text));
     z-index: 101;
     position: absolute;
-    bottom: -23%;
-    right: 0%;
+    bottom: -18%;
+    right: 0;
     display: flex;
     align-items: center;
     flex: 1;
@@ -113,7 +113,7 @@
     pointer-events: all;
 }
 
-#delete-date-button {    
+#delete-date-button {
     color: rgba(var(--text), 0.4);
     opacity: 0;
     transition: opacity 0.3s ease-in-out, color 0.3s ease-in-out;

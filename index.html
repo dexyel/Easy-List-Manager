@@ -2,34 +2,40 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="description" content="Un simple gestionnaire de To-Do List">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta content="IE=edge" http-equiv="X-UA-Compatible">
+    <meta content="Un simple gestionnaire de To-Do List" name="description">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
     <title>Easy List Manager</title>
 
-    <link rel="stylesheet" href="./Styles/general.css">
-    <link rel="stylesheet" href="./Styles/settings-menu.css">
-    <link rel="stylesheet" href="./Styles/header.css">
-    <link rel="stylesheet" href="./Styles/main.css">
-    <link rel="stylesheet" href="./Styles/edit.css">
-    <link rel="stylesheet" href="./Styles/footer.css">
-    <link rel="stylesheet" href="./Styles/keyframes.css">
-    <link rel="stylesheet" href="./Styles/calendar.css">
+    <link href="./Styles/general.css" rel="stylesheet">
+    <link href="./Styles/settings-menu.css" rel="stylesheet">
+    <link href="./Styles/header.css" rel="stylesheet">
+    <link href="./Styles/main.css" rel="stylesheet">
+    <link href="./Styles/edit.css" rel="stylesheet">
+    <link href="./Styles/footer.css" rel="stylesheet">
+    <link href="./Styles/keyframes.css" rel="stylesheet">
+    <link href="./Styles/calendar.css" rel="stylesheet">
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;500&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
-    
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link href="https://fonts.googleapis.com" rel="preconnect">
+    <link crossorigin href="https://fonts.gstatic.com" rel="preconnect">
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;500&family=Roboto:wght@400;500;700&display=swap"
+          rel="stylesheet">
+
+    <link crossorigin="anonymous" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
+          integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w=="
+          referrerpolicy="no-referrer" rel="stylesheet"/>
 </head>
+
 <body>
-    <h1 id="title-background" class="visible">
+    <h1 class="visible" id="title-background">
         <span class="initials">E</span>asy
         <span class="initials">L</span>ist
         <span class="initials">M</span>anager
     </h1>
+
     <header>
-        <div id="header-container" class="hidden">
+        <div class="hidden" id="header-container">
             <h1 id="title">
                 <span class="initials">E</span>asy
                 <span class="initials">L</span>ist
@@ -38,21 +44,43 @@
         </div>
     </header>
 
-    <div id="settings-container" class="closed">
+    <div class="closed" id="settings-container">
         <div id="settings-header">
             <h2>Paramètres</h2>
-        
-            <button id="settings-button" aria-label="Settings">
+
+            <button aria-label="Settings" id="settings-button">
                 <i class="fa-solid fa-gear"></i>
             </button>
         </div>
         <div id="settings-menu">
-            
+            <div id="label-settings">
+                <h3>Etiquettes:</h3>
+                <div id="label-1">
+                    <i class="fa-solid fa-circle"></i>
+                    <p class="label-name" contenteditable>Label 1</p>
+                </div>
+                <div id="label-2">
+                    <i class="fa-solid fa-circle"></i>
+                    <p class="label-name" contenteditable>Label 2</p>
+                </div>
+                <div id="label-3">
+                    <i class="fa-solid fa-circle"></i>
+                    <p class="label-name" contenteditable>Label 3</p>
+                </div>
+                <div id="label-4">
+                    <i class="fa-solid fa-circle"></i>
+                    <p class="label-name" contenteditable>Label 4</p>
+                </div>
+                <div id="label-5">
+                    <i class="fa-solid fa-circle"></i>
+                    <p class="label-name" contenteditable>Label 5</p>
+                </div>
+            </div>
         </div>
     </div>
 
     <div id="main-container">
-        <div id="edit-container" class="hidden">
+        <div class="hidden" id="edit-container">
             <div id="lists-menu">
                 <div id="lists-menu-header">
                     <h3>Listes:</h3>
@@ -68,7 +96,7 @@
                 </div>
             </div>
 
-            <h2 id="list-title" contenteditable placeholder="Nouvelle liste..."></h2>
+            <h2 contenteditable id="list-title" placeholder="Nouvelle liste..."></h2>
 
             <div id="edit-buttons">
                 <button id="save-button">
@@ -86,44 +114,44 @@
             </div>
         </div>
 
-        <div id="list-container" class="hidden">
+        <div class="hidden" id="list-container">
             <ul></ul>
         </div>
     </div>
 
     <footer>
         <div id="footer-container">
-            <div id="new-container" class="closed">
+            <div class="closed" id="new-container">
                 <div id="color-buttons">
-                    <button id="color1-button" aria-label="Color 1">
+                    <button aria-label="Color 1" id="color1-button">
                         <i class="fa-solid fa-circle"></i>
                     </button>
-                    <button id="color2-button" aria-label="Color 2">
+                    <button aria-label="Color 2" id="color2-button">
                         <i class="fa-solid fa-circle"></i>
                     </button>
-                    <button id="color3-button" aria-label="Color 3">
+                    <button aria-label="Color 3" id="color3-button">
                         <i class="fa-solid fa-circle"></i>
                     </button>
-                    <button id="color4-button" aria-label="Color 4">
+                    <button aria-label="Color 4" id="color4-button">
                         <i class="fa-solid fa-circle"></i>
                     </button>
-                    <button id="color5-button" aria-label="Color 5">
+                    <button aria-label="Color 5" id="color5-button">
                         <i class="fa-solid fa-circle"></i>
                     </button>
                 </div>
 
                 <div id="input-container">
-                    <input id="todo-input" type="text" placeholder="Nouveau...">
+                    <input id="todo-input" placeholder="Nouveau..." type="text">
                     <button id="enter-button">
                         <i class="fa-solid fa-check"></i>
-                    </button>                    
+                    </button>
                 </div>
 
                 <div id="input-options-container">
-                    <button id="important-button" >
+                    <button id="important-button">
                         <i class="fa-solid fa-triangle-exclamation"></i>
                     </button>
-                    
+
                     <button id="calendar-button">
                         <i class="fa-solid fa-calendar-days"></i>
                     </button>
@@ -168,20 +196,15 @@
                         </div>
                     </div>
                 </div>
-               
             </div>
-            
-            <button id="new-todo-button" aria-label="New">
+
+            <button aria-label="New" id="new-todo-button">
                 <i class="fa-solid fa-circle-plus"></i>
-            </button>            
+            </button>
         </div>
     </footer>
 
-    <script src="./Scripts/initialsColoring.js"></script>
-    <script src="./Scripts/settingsMenu.js"></script>
-    <script src="./Scripts/menu.js"></script>
     <script src="./Scripts/todoManager.js"></script>
-    <script src="./Scripts/edit.js"></script>
     <script src="./Scripts/calendar.js"></script>
 </body>
 </html>

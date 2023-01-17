@@ -51,7 +51,7 @@
     margin-top: 2rem;
     left: 0;
     right: 0;
-    height: fit-content;    
+    height: fit-content;
 }
 
 #lists-menu-items li {
@@ -60,7 +60,7 @@
 }
 
 #lists-menu-items li::before {
-    font-family: 'Font Awesome 6 Free';
+    font-family: 'Font Awesome 6 Free', serif;
     font-weight: 900;
     font-size: 1rem;
     width: 0;
@@ -78,13 +78,13 @@
 }
 
 #lists-menu-items li a {
-    color:rgba(var(--text), 1);
+    color: rgba(var(--text), 1);
     text-decoration: none;
-    
+
 }
 
 #lists-menu-header h3 {
-    font-weight: 400; 
+    font-weight: 400;
 }
 
 #lists-menu-header button {
