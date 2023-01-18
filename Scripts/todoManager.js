@@ -263,7 +263,7 @@ function addListItemEvents(li) {
         let match = color.match(/^rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*(\d+(?:\.\d+)?))?\)$/);
         let rgba = match ? `rgba(${match[1]}, ${match[2]}, ${match[3]}, 0.3)` : color;
 
-        li.style.boxShadow = `0 0 200px ${rgba}`;
+        li.style.boxShadow = `0 0 100px ${rgba}`;
     }); //effet hover
 
     li.addEventListener('mouseout', () => {
