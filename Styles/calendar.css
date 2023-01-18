@@ -24,7 +24,7 @@
 #calendar-app {
     width: 250px;
     height: 250px;
-    background: rgba(var(--text), 0.8);
+    background: rgba(var(--text), 0.7);
     border-radius: 15px;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
     opacity: 0;
@@ -99,8 +99,7 @@
     color: rgb(var(--text));
     z-index: 101;
     position: absolute;
-    bottom: -18%;
-    right: 0;
+    right: -16%;
     display: flex;
     align-items: center;
     flex: 1;
@@ -130,4 +129,34 @@
 
 #delete-date-button:active {
     filter: opacity(70%);
+}
+
+#pin-calendar-button {
+    position: fixed;
+    bottom: 0.5rem;
+    right: 1rem;
+    font-size: 1rem;
+}
+
+#pin-calendar-button.unlocked {
+    transform: rotateZ(90deg);
+    opacity: 0.5;
+}
+
+#pin-calendar-button.locked {
+    transform: rotateZ(0);
+    opacity: 1;
+}
+
+#pin-calendar-button.unlocked:hover {
+    opacity: 0.75;
+    transform: rotateZ(50deg);
+}
+
+#pin-calendar-button:hover {
+    opacity: 0.75;
+}
+
+#pin-calendar-button:active {
+    opacity: 0.4;
 }

@@ -1,4 +1,4 @@
-
+const calendarModal = document.getElementById('calendar-app');
 const calendarGrid = document.getElementById('calendar-days-numbers');
 const nextMonthButton = document.getElementById('next-month-button');
 const previousMonthButton = document.getElementById('previous-month-button');
@@ -12,9 +12,11 @@ const pickedDateText = document.getElementById('date-text');
 const deletePickedDate = document.getElementById('delete-date-button');
 const currentDate = new Date();
 const monthsList = ["JAN.", "FEV.", "MAR.", "AVR.", "MAI", "JUIN", "JUI.", "AOUT", "SEP.", "OCT.", "NOV.", "DEC."];
+const pinCalendarButton = document.getElementById('pin-calendar-button');
 
 let currentMonth = currentDate.getMonth();
 let currentYear = currentDate.getFullYear();
+let isPinned = false;
 
 calendarButton.addEventListener('click', openCalendar);
 nextMonthButton.addEventListener('click', nextMonth);
@@ -23,10 +25,9 @@ nextYearButton.addEventListener('click', nextYear);
 previousYearButton.addEventListener('click', previousYear);
 resetDateButton.addEventListener('click', resetDate);
 deletePickedDate.addEventListener('click', resetPickedDate);
+pinCalendarButton.addEventListener('click', pinCalendar);
 
 function openCalendar() {
-    const calendarModal = document.getElementById('calendar-app');
-
     if (calendarModal.classList.contains('modal')) {
         calendarModal.classList.toggle('modal');
         calendarButton.classList.toggle('calendar-active');
@@ -36,6 +37,17 @@ function openCalendar() {
     }
 
     generateCalendar();
+}
+
+function pinCalendar() {
+    isPinned = !isPinned;
+    
+    if (isPinned) {
+        pinCalendarButton.classList.replace('unlocked', 'locked');
+    }
+    else {
+        pinCalendarButton.classList.replace('locked', 'unlocked');
+    }
 }
 
 function generateCalendar() {

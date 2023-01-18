@@ -346,8 +346,18 @@ function deleteItem(e, li) {
 function resetInput() {
     input.value = "";
     input.style.background = "white";
-    activeButton.classList.remove('is-active');
-    activeButton = null;
+
+    if (activeButton !== null) {
+        activeButton.classList.remove("is-active");
+        activeButton = null;
+    }
+
+    if (!isPinned && calendarModal.classList.contains('modal')) {
+        calendarModal.classList.toggle('modal');
+        calendarButton.classList.toggle('calendar-active');
+    }    
+
+    resetPickedDate();
 }
 //#endregion
 
@@ -724,13 +734,12 @@ function destroyList() {
 
 function resetList() {
     activeList = "";
-    activeButton.classList.remove("is-active");
-    activeButton = null;
     listTitle.textContent = "";
-    ul.innerHTML = "";
-    input.style.background = "white";
+    ul.innerHTML = "";    
     
     for (let i = 0; i < labelDivs.length; i++) {
         labelDivs[i].querySelector('p').textContent = `Label ${i + 1}`;
     }
+
+    resetInput();
 } //reset liste
