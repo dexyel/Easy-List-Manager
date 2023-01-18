@@ -397,15 +397,16 @@ function saveList() {
     updateActiveList();
     data = checkExisting(data, listData, labelData);
 
-    localStorage.setItem(`list-${data.title}`, JSON.stringify(data));
+    localStorage.setItem(`list-${listTitle}`, JSON.stringify(data));
 }
 
 function checkExisting(data, listData, labelData) {
     const existingList = JSON.parse(localStorage.getItem(`list-${activeList}`));
     
     if (existingList) {
+        let hasChanged = false;
+
         data = existingList;
-        data.version++;
         
         data.items = data.items.filter(item => {
             return listData.some(newItem => newItem.text === item.text);
@@ -414,23 +415,32 @@ function checkExisting(data, listData, labelData) {
         listData.forEach(newItem => {
             if (!data.items.some(item => item.text === newItem.text)) {
                 data.items.push(newItem);
+                hasChanged = true;
             }
         });
 
         data.items = data.items.map((item) => {
             const match = listData.find(newItem => newItem.text === item.text);
+            if (match && match.done !== item.done) {
+                hasChanged = true;
+            }
             item.done = match ? match.done : false;
             return item;
         });
 
         labelData.forEach(newLabel => {
-            if (!data.labels.some(label => label.text === newLabel.text)) {
-                data.labels.push(newLabel);
+            if (!data.labels.some(label => label === newLabel)) {
+                data.labels = labelData;
+                hasChanged = true;
             }
         });
-        
-        return data;
+
+        if (hasChanged) {
+            data.version++;
+        }
     }
+
+    return data;
 }
 
 function updateActiveList() {
