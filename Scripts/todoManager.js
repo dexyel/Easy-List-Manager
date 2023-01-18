@@ -249,8 +249,7 @@ function createListItem() {
 
     ul.appendChild(li);
 
-    input.value = "";
-    input.style.background = "white";
+    resetInput();
 } //crée un item de liste
 
 function addListItemEvents(li) {
@@ -343,6 +342,13 @@ function deleteItem(e, li) {
         ul.removeChild(li);
     })
 } //supprime item
+
+function resetInput() {
+    input.value = "";
+    input.style.background = "white";
+    activeButton.classList.remove('is-active');
+    activeButton = null;
+}
 //#endregion
 
 //#region SLIE System
@@ -555,26 +561,6 @@ function loadInfoButton(item, li) {
     li.appendChild(infoButton);
 }
 
-function destroyList() {
-    listTitle.textContent = '';
-    localStorage.removeItem(`list-${activeList}`);
-
-    const activeElements = document.querySelectorAll(`#lists-menu-items li`);
-
-    for (const activeElement of activeElements) {
-        if (activeElement.textContent.indexOf(activeList) !== -1) {
-            activeElement.remove();
-            break;
-        }
-    }
-
-    while (ul.firstChild) {
-        ul.removeChild(ul.firstChild);
-    }
-
-    activeList = "";
-} //détruit la liste du localStorage et du menu
-
 function exportList() {
     const listTitle = document.getElementById('list-title').innerText;
     const listItems = document.querySelectorAll('#list-container ul li');
@@ -716,9 +702,35 @@ function replaceList(importedList, alreadyExists) {
 } //remplace liste existante
 //#endregion
 
+function destroyList() {
+    listTitle.textContent = '';
+    localStorage.removeItem(`list-${activeList}`);
+
+    const activeElements = document.querySelectorAll(`#lists-menu-items li`);
+
+    for (const activeElement of activeElements) {
+        if (activeElement.textContent.indexOf(activeList) !== -1) {
+            activeElement.remove();
+            break;
+        }
+    }
+
+    while (ul.firstChild) {
+        ul.removeChild(ul.firstChild);
+    }
+
+    resetList();
+} //détruit la liste du localStorage et du menu
+
 function resetList() {
     activeList = "";
+    activeButton.classList.remove("is-active");
+    activeButton = null;
     listTitle.textContent = "";
     ul.innerHTML = "";
     input.style.background = "white";
+    
+    for (let i = 0; i < labelDivs.length; i++) {
+        labelDivs[i].querySelector('p').textContent = `Label ${i + 1}`;
+    }
 } //reset liste

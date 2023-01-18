@@ -99,21 +99,21 @@
 #list-container li.important::before {
     font-family: 'Font Awesome 6 Free', serif;
     font-weight: 900;
-    font-size: 8rem;
+    font-size: 3rem;
     width: 0;
     height: 0;
     content: '\f071';
     position: relative;
-    left: -2rem;
-    top: -4rem;
-    color: rgba(0, 0, 0, 0.15);
+    left: -20%;
+    top: -1.25rem;
+    color: rgba(255, 255, 255, 0.35);
     transition: all 0.3s ease-in-out;
 }
 
 #list-container li.done.important::before {
-    font-size: 3rem;
-    left: -1.5rem;
-    top: -1.7rem;
+    font-size: 2rem;
+    left: -15%;
+    top: -1rem;
     transition: all 0.3s ease-in-out;
 }
 
