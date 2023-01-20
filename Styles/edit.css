@@ -138,17 +138,27 @@
 
 #edit-buttons {
     position: fixed;
+    top: 10rem;
     right: 1rem;
+    display: flex;
+    flex-direction: column;
 }
 
-#edit-buttons button {
+.buttons-row {
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-start;
+    margin-bottom: 1.5rem;
+}
+
+.buttons-row button {
     background: none;
     border: none;
     cursor: pointer;
     margin-right: 1rem;
 }
 
-#edit-buttons button i {
+.buttons-row button i {
     color: rgba(var(--text), 0.4);
     transition: color 0.3s ease;
     font-size: 1.25rem;
@@ -158,11 +168,57 @@
     color: rgb(245, 100, 100);
 }
 
-#edit-buttons button i:hover {
+.buttons-row button i:hover {
     color: rgb(var(--text));
 }
 
 .disabled {
     opacity: 0.5;
     pointer-events: none !important;
+}
+
+#filter-button.is-active > i {
+    color: rgba(var(--text), 1);
+}
+
+#filter-menu {
+    height: 1px;
+    width: 0;    
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    border-top: 1px solid rgba(var(--text), 0.4);
+    padding-top: 1rem;
+    margin-right: 1rem;
+    margin-top: 0.5rem;
+    color: rgb(var(--text));
+    overflow: hidden;
+}
+
+#filter-menu.open {
+    height: 280px;
+    width: 200px;  
+    transition: width 0.1s ease-in-out, height 0.3s ease-in-out 0.3s;
+}
+
+#filter-menu.closed {
+    height: 1px;
+    width: 0;
+    transition: height 0.3s ease-in-out, width 0.1s ease-in-out 0.3s;
+}
+
+#filter-menu span {
+    margin: 0 0.5rem 0.5rem 0.5rem;
+    background-color: transparent;
+    transition: background 0.3s ease-in-out;
+    padding: 0.5rem;
+    border-radius: 20px;
+}
+
+#filter-menu span:hover {
+    cursor: pointer;
+}
+
+#filter-menu span:active {
+    filter: opacity(80%);
 }

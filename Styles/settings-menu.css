@@ -16,6 +16,11 @@
     right: -20%;
 }
 
+#settings-menu {
+    margin-top: 1rem;
+    margin-left: 1rem;
+}
+
 #settings-button {
     position: fixed;
     top: 2rem;
@@ -42,11 +47,6 @@
     margin-top: 2rem;
 }
 
-#label-settings h3 {
-    font-weight: 400;
-    margin-bottom: 2rem;
-}
-
 #label-settings div {
     display: flex;
     align-items: center;
@@ -70,4 +70,71 @@
 .fa-gear:hover {
     color: rgb(var(--text));
     transform: rotateZ(60deg);
+}
+
+#label-settings h3,
+#options-settings h3 {
+    font-weight: 400;
+    margin-bottom: 2rem;
+    color: rgb(var(--text));
+}
+
+#options-settings {
+    margin-top: 2rem;
+    color: rgb(var(--text));
+}
+
+#label-lock-container {
+    display: flex;
+    align-items: center;
+    margin-left: 1rem;    
+}
+
+input[type=checkbox] {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    display: flex;
+    align-items: top;
+    position: relative;
+    width: 34px;
+    height: 18px;    
+    border-radius: 11px;
+    outline: none;    
+    margin: 0 1rem 0 0;
+    cursor: pointer;
+    background: rgb(var(--text));
+    transition: background 0.3s ease-in-out;
+}
+
+input[type=checkbox]:after {
+    content: "";
+    display: block;
+    position: absolute;
+    left: 2px;
+    top: 3px;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;    
+    background: #b6b6b6;
+    transform: translateX(0);
+    transition-property: background, transform;
+    transition: 0.3s ease-in-out;
+}
+
+input[type=checkbox]:checked {
+    background: rgb(var(--color4));
+}
+
+input[type=checkbox]:checked:after {
+    background: rgb(var(--text));
+    transform: translateX(17px);
+}
+
+input[type=checkbox] + label {
+    font-size: 1rem;
+    line-height: 21px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    margin-left: 4px;
 }

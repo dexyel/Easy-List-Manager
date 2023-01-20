@@ -1,4 +1,5 @@
 //#region Variables
+
 const colors = [
     "rgb(var(--color1))",
     "rgb(var(--color2))",
@@ -14,18 +15,22 @@ const headerContainer = document.getElementById('header-container'); //container
 const settingsButton = document.getElementById('settings-button'); //bouton paramètres
 const settingsContainer = document.getElementById('settings-container'); //container paramètres
 const labelDivs = document.querySelectorAll("#label-settings div"); //container labels
+const labelLockSwitch = document.getElementById('label-lock-switch'); //bouton lock switch
 
 /* MAIN */
 const listContainer = document.getElementById('list-container'); //container liste
 const ul = document.querySelector('#list-container ul'); //ul principal de la liste
 const listTitle = document.getElementById('list-title'); //titre liste
 const editContainer = document.getElementById('edit-container'); //container de l'interface
-const saveButton = document.getElementById('save-button');
-const destroyButton = document.getElementById('destroy-button');
-const exportButton = document.getElementById('export-button');
-const importButton = document.getElementById('import-button');
-const listMenu = document.getElementById('lists-menu-items');
-const newListButton = document.getElementById('new-list-button');
+const saveButton = document.getElementById('save-button'); //bouton de sauvegarde
+const destroyButton = document.getElementById('destroy-button'); //bouton de suppression de liste
+const exportButton = document.getElementById('export-button'); //bouton d'export
+const importButton = document.getElementById('import-button'); //bouton d'import
+const listMenu = document.getElementById('lists-menu-items'); //menu de la liste
+const newListButton = document.getElementById('new-list-button'); //bouton nouvelle liste
+const filterButton = document.getElementById('filter-button'); //bouton filtre
+const filterMenu = document.getElementById('filter-menu'); //menu des filtres
+const cleanButton = document.getElementById('clean-button'); //bouton nettoyage done
 
 /* INPUT */
 const inputContainer = document.getElementById('new-container'); //container de l'input
@@ -34,13 +39,17 @@ const circles = document.querySelectorAll('#color-buttons button'); //boutons de
 const input = document.getElementById('todo-input'); //input
 const enterButton = document.getElementById('enter-button'); //bouton de validation input
 const importantButton = document.getElementById('important-button'); //bouton important
-const calendarButton = document.getElementById('calendar-button');
+const calendarButton = document.getElementById('calendar-button'); //bouton du calendrier
 
 let activeList = "";
 let activeButton;
+let labelLocked = false;
+let activeFilter = null;
+
 //#endregion 
 
 //#region EventListeners
+
 enterButton.addEventListener('click', addItemOnClick);
 input.addEventListener('keypress', addItemOnEnter);
 newButton.addEventListener('click', toggleInterface);
@@ -50,7 +59,9 @@ destroyButton.addEventListener('click', destroyList);
 exportButton.addEventListener('click', exportList);
 importButton.addEventListener('click', importList);
 newListButton.addEventListener('click', resetList);
-window.addEventListener('load', loadLocalStorageToMenu);
+filterButton.addEventListener('click', toggleFilter);
+cleanButton.addEventListener('click', removeDoneItems);
+window.addEventListener('load', loadListToMenu);
 ul.addEventListener('DOMSubtreeModified', updateEditButtons);
 ul.addEventListener('DOMNodeRemoved', updateEditButtons);
 listTitle.addEventListener('input', () => updateEditButtons);
@@ -66,6 +77,7 @@ listMenu.addEventListener('click', (e) => {
     if (e.target.tagName === "A") {
         activeList = e.target.innerText;
         loadListFromMenu(activeList);
+        loadFiltersNames();
     }
 });
 
@@ -81,9 +93,15 @@ for (let i = 0; i < circles.length; i++) {
         };
     })(i));
 }
+
+labelLockSwitch.addEventListener('change', (e) => {
+    labelLocked = e.target.checked;
+}); // verrouille/déverrouille la sélection du label
+
 //#endregion
 
 //#region Interface
+
 for (let i = 0; i < labelDivs.length; i++) {
     const label = labelDivs[i];
     const circle = label.firstElementChild;
@@ -107,7 +125,8 @@ initials.forEach(initial => {
     initial.style.color = colors[randomIndex]; 
 }); //attribue une couleur aléatoire aux initiales des titres
 
-activeList === "" ? destroyButton.classList.add('disabled') : destroyButton.classList.remove('disabled'); //active le bouton détruire si une liste est active, sinon le désactive
+activeList === "" ? destroyButton.classList.add('disabled') : destroyButton.classList.remove('disabled');
+//active le bouton détruire si une liste est active, sinon le désactive
 
 function openSettings() { 
     if (settingsContainer.classList.contains('open')) {
@@ -133,6 +152,7 @@ function getLabelName(color) {
 
 function updateLabels() {
     const items = document.querySelectorAll('#list-container ul li');
+    const filters = filterMenu.querySelectorAll('span');
 
     items.forEach((item) => {
         const itemBackground = item.style.background;
@@ -141,7 +161,11 @@ function updateLabels() {
 
         labelDiv.innerText = labelName;
     });
-}
+
+    filters.forEach((filter, index) => {
+        filter.textContent = labelDivs[index].textContent;
+    });
+} //met à jour les labels des items
 
 function toggleInterface() { 
     const icon = newButton.firstElementChild;
@@ -167,6 +191,100 @@ function toggleInterface() {
     }
 } //affiche l'interface
 
+function toggleFilter() {
+    if (!filterMenu.classList.contains('open')) {
+        filterMenu.classList.replace('closed', 'open');
+        filterButton.classList.add('is-active');
+    }
+    else {
+        filterMenu.classList.replace('open', 'closed');
+        filterButton.classList.remove('is-active');
+
+        // resetFilters();
+        // showAllItems();
+    }
+}
+
+function loadFiltersNames() {
+    const filtersLabel = filterMenu.querySelectorAll('span');
+
+    filtersLabel.forEach((filter, index) => {
+        filter.textContent = labelDivs[index].textContent;
+
+        filter.addEventListener('mouseover', () => {
+                filter.style.backgroundColor = colors[index];
+        });
+
+        filter.addEventListener('mouseout', () => {
+            if (!filter.classList.contains('is-active')) {
+                filter.style.backgroundColor = 'transparent';
+            }
+        });
+
+        filter.addEventListener('click', () => {
+            if (filter.textContent === activeFilter) {
+                filter.classList.remove('is-active');
+                filter.style.backgroundColor = 'transparent';
+
+                filtersLabel.forEach(f => f.style.opacity = 1);
+
+                activeFilter = null;
+
+                showAllItems();
+            }
+            else {
+                filtersLabel.forEach(f => {
+                    f.classList.remove('is-active');
+                    f.style.backgroundColor = 'transparent';
+                    f.style.opacity = 0.7;
+                });
+
+                filter.classList.add('is-active');
+                filter.style.backgroundColor = colors[index];
+                filter.style.opacity = 1;
+                activeFilter = filter.textContent;
+
+                activateFilter(filter);
+            }
+        });
+    });
+}
+
+function activateFilter(filter) {    
+    const selectedFilter = filter.innerText;
+    const listItems = document.querySelectorAll('#list-container li');
+
+    listItems.forEach((item) => {
+        const label = item.querySelector('#label-modal p').textContent;
+        
+        if (label === selectedFilter) {
+            item.style.display = 'flex';
+        }
+        else {
+            item.style.display = 'none';
+        }
+    })
+}
+
+function showAllItems() {
+    const listItems = document.querySelectorAll('#list-container li');
+
+    listItems.forEach((item) => {
+        item.style.display = 'flex';
+    });
+}
+
+function resetFilters() {
+    const filtersLabel = filterMenu.querySelectorAll('span');
+
+    filtersLabel.forEach(filter => {
+        filter.classList.remove('is-active');
+        filter.style.backgroundColor = 'transparent';
+    });
+
+    activeFilter = null;
+}
+
 function addItemOnClick() {
     if (input.value.length > 0) {
         createListItem();
@@ -184,7 +302,8 @@ function activateColorButton(button) {
         activeButton = null;
         button.classList.remove('is-active');
         input.style.background = "white";
-    } else {
+    } 
+    else {
         if (activeButton) {
             activeButton.classList.remove('is-active');
         }
@@ -194,32 +313,22 @@ function activateColorButton(button) {
     }
 } //active et désactive les boutons de sélection de couleur de l'input
 
-function loadLocalStorageToMenu() {
-    const listsMenu = document.getElementById("lists-menu-items");
-    const keys = Object.keys(localStorage);
-
-    keys.forEach((key) => {
-        if (key.startsWith("list-")) {
-            const li = document.createElement("li");
-
-            li.innerHTML = `<a href="#">${key.replace('list-', '')}</a>`;
-            listsMenu.appendChild(li);
-        }
-    });
-    updateEditButtons();
-}
-
 function updateEditButtons() {
     if (listTitle.textContent.trim() === '' && ul.children.length === 0) {
         saveButton.classList.add("disabled");
         exportButton.classList.add("disabled");
         destroyButton.classList.add('disabled');
+        cleanButton.classList.add('disabled');
+        filterButton.classList.add('disabled');
     } else {
         saveButton.classList.remove("disabled");
         exportButton.classList.remove("disabled");
         destroyButton.classList.remove('disabled');
+        cleanButton.classList.remove('disabled');
+        filterButton.classList.remove('disabled');
     }
 } //update boutons d'édition
+
 //#endregion
 
 //#region Item
@@ -269,7 +378,7 @@ function addListItemEvents(li) {
     li.addEventListener('mouseout', () => {
         li.style.boxShadow = "none";
     }); //effet exit hover
-} //ajoute listeners aux items
+} //ajoute des listeners aux items
 
 function addInfoButton(li) {
     const infoButton = document.createElement('div');
@@ -310,12 +419,12 @@ function addInfoButton(li) {
 
     li.appendChild(infoModal);
     li.appendChild(infoButton);
-} //ajoute bouton info + modal
+} //ajoute un bouton info et son modal à l'item
 
 function showInfos(e, li) {
     e.stopPropagation();
     li.firstElementChild.classList.toggle('visible');
-} //montre modal info
+} //montre le modal d'info de l'item
 
 function addDeleteButton(li) {
     let deleteButton = document.createElement('button');
@@ -327,7 +436,7 @@ function addDeleteButton(li) {
     deleteButton.addEventListener('click', (e) => deleteItem(e, li));
     
     li.appendChild(deleteButton);
-} //ajoute bouton delete
+} //ajoute un bouton delete à l'item
 
 function deleteItem(e, li) {
     e.stopPropagation();
@@ -341,15 +450,27 @@ function deleteItem(e, li) {
     li.addEventListener('animationend', () => {
         ul.removeChild(li);
     })
-} //supprime item
+} //supprime l'item
+
+function removeDoneItems() {
+    const doneItems = document.querySelectorAll('.done');
+
+    doneItems.forEach((item) => {
+        item.classList.add('delete');
+
+        item.addEventListener('transitionend', () => {
+            item.remove();
+        });
+    });
+} //supprime tous les éléments done
 
 function resetInput() {
-    input.value = "";
-    input.style.background = "white";
+    input.value = "";    
 
-    if (activeButton !== null) {
+    if (activeButton !== null && !labelLocked) {
         activeButton.classList.remove("is-active");
         activeButton = null;
+        input.style.background = "white";
     }
 
     if (!isPinned && calendarModal.classList.contains('modal')) {
@@ -358,10 +479,10 @@ function resetInput() {
     }    
 
     resetPickedDate();
-}
+} //reset toutes les options d'input
 //#endregion
 
-//#region SLIE System
+//#region Système SL/IE/DR
 function saveList() {
     const listTitle = document.getElementById('list-title').innerText;
     const listItems = document.querySelectorAll(' #list-container ul li');
@@ -414,7 +535,7 @@ function saveList() {
     data = checkExisting(data, listData, labelData);
 
     localStorage.setItem(`list-${listTitle}`, JSON.stringify(data));
-}
+} //sauvegarde la liste dans le localStorage
 
 function checkExisting(data, listData, labelData) {
     const existingList = JSON.parse(localStorage.getItem(`list-${activeList}`));
@@ -457,7 +578,7 @@ function checkExisting(data, listData, labelData) {
     }
 
     return data;
-}
+} //vérifie si une liste est déjà présente dans le localStorage et écrase si oui
 
 function updateActiveList() {
     if (activeList && activeList !== listTitle.innerText) {
@@ -478,7 +599,7 @@ function updateActiveList() {
     } else if (!activeList && ul.children.length !== 0) {
         addListToMenu(listTitle.innerText);
     }
-} //update liste active
+} //met à jour la liste active
 
 function addListToMenu(listTitle) {
     const li = document.createElement('li');
@@ -487,7 +608,7 @@ function addListToMenu(listTitle) {
     activeList = `list-${listTitle}`;
 
     document.querySelector('#lists-menu-items').appendChild(li);
-} //ajoute liste au menu
+} //ajoute la liste au menu
 
 function loadListFromMenu(activeListTitle) {
     const data = JSON.parse(localStorage.getItem(`list-${activeListTitle}`));
@@ -528,7 +649,22 @@ function loadListFromMenu(activeListTitle) {
         updateEditButtons();
         updateLabels();
     }
-}
+} //charge une liste depuis le menu
+
+function loadListToMenu() {
+    const listsMenu = document.getElementById("lists-menu-items");
+    const keys = Object.keys(localStorage);
+
+    keys.forEach((key) => {
+        if (key.startsWith("list-")) {
+            const li = document.createElement("li");
+
+            li.innerHTML = `<a href="#">${key.replace('list-', '')}</a>`;
+            listsMenu.appendChild(li);
+        }
+    });
+    updateEditButtons();
+} //charge le localStorange dans le menu au chargement de la page
 
 function loadInfoButton(item, li) {
     const infoButton = document.createElement('div');
@@ -569,7 +705,7 @@ function loadInfoButton(item, li) {
 
     li.appendChild(infoModal);
     li.appendChild(infoButton);
-}
+} //charge le bouton info et le modal
 
 function exportList() {
     const listTitle = document.getElementById('list-title').innerText;
@@ -709,8 +845,7 @@ function replaceList(importedList, alreadyExists) {
     } else {
         addListToMenu(importedList.title);
     }
-} //remplace liste existante
-//#endregion
+} //remplace la liste existante
 
 function destroyList() {
     listTitle.textContent = '';
@@ -742,4 +877,5 @@ function resetList() {
     }
 
     resetInput();
-} //reset liste
+} //reset la page pour démarrer une nouvelle liste
+//#endregion

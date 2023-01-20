@@ -76,6 +76,14 @@
                     <p class="label-name" contenteditable>Label 5</p>
                 </div>
             </div>
+
+            <div id="options-settings">
+                <h3>Options:</h3>
+                <div id="label-lock-container">
+                    <input id="label-lock-switch" type="checkbox">
+                    <label for="label-lock-switch">Lock Selected Label</label>
+                </div>                
+            </div>
         </div>
     </div>
 
@@ -90,27 +98,42 @@
                 </div>
 
                 <div id="lists-menu-items-container">
-                    <ul id="lists-menu-items">
-
-                    </ul>
+                    <ul id="lists-menu-items"></ul>
                 </div>
             </div>
 
             <h2 contenteditable id="list-title" placeholder="Nouvelle liste..."></h2>
 
             <div id="edit-buttons">
-                <button id="save-button">
-                    <i class="fa-solid fa-floppy-disk"></i>
-                </button>
-                <button id="import-button">
-                    <i class="fa-solid fa-file-import"></i>
-                </button>
-                <button id="export-button">
-                    <i class="fa-solid fa-file-export"></i>
-                </button>
-                <button id="destroy-button">
-                    <i class="fa-solid fa-trash-can"></i>
-                </button>
+                <div class="buttons-row">
+                    <button id="save-button">
+                        <i class="fa-solid fa-floppy-disk"></i>
+                    </button>
+                    <button id="import-button">
+                        <i class="fa-solid fa-file-import"></i>
+                    </button>
+                    <button id="export-button">
+                        <i class="fa-solid fa-file-export"></i>
+                    </button>
+                    <button id="destroy-button">
+                        <i class="fa-solid fa-trash-can"></i>
+                    </button>
+                </div>
+                <div class="buttons-row">
+                    <div id="filter-menu" class="closed">
+                        <span id="filter-1"></span>
+                        <span id="filter-2"></span>
+                        <span id="filter-3"></span>
+                        <span id="filter-4"></span>
+                        <span id="filter-5"></span>
+                    </div>
+                    <button id="filter-button">
+                        <i class="fa-solid fa-filter"></i>
+                    </button>
+                    <button id="clean-button">
+                        <i class="fa-solid fa-bars-staggered"></i>
+                    </button>
+                </div>                
             </div>
         </div>
 

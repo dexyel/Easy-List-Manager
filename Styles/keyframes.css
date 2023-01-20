@@ -37,3 +37,23 @@
         opacity: 0;
     }
 }
+
+@keyframes openFilterWidth {
+    from { width: 0; }
+    to {  width: 150px; }
+}
+
+@keyframes openFilterHeight {
+    from { height: 1px; }
+    to { height: 100%; }
+}
+
+@keyframes closeFilterWidth {
+    from { width: 150px; }
+    to { width: 0; }
+}
+
+@keyframes closeFilterHeight {
+    from { height: 100%; }
+    to { height: 1px; }
+}
