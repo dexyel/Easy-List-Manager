@@ -45,6 +45,7 @@ let activeList = "";
 let activeButton;
 let labelLocked = false;
 let activeFilter = null;
+let filtersEventsInitiated = false;
 
 //#endregion 
 
@@ -77,7 +78,6 @@ listMenu.addEventListener('click', (e) => {
     if (e.target.tagName === "A") {
         activeList = e.target.innerText;
         loadListFromMenu(activeList);
-        loadFiltersNames();
     }
 });
 
@@ -195,45 +195,48 @@ function toggleFilter() {
     if (!filterMenu.classList.contains('open')) {
         filterMenu.classList.replace('closed', 'open');
         filterButton.classList.add('is-active');
+
+        if (!filtersEventsInitiated) {
+            loadFiltersNames();
+            filtersEventsInitiated = true;
+        }        
     }
     else {
+        resetFilters();
+        showAllItems();
+        
         filterMenu.classList.replace('open', 'closed');
         filterButton.classList.remove('is-active');
-
-        // resetFilters();
-        // showAllItems();
     }
-}
+} //ouvre le menu des filtres
 
 function loadFiltersNames() {
-    const filtersLabel = filterMenu.querySelectorAll('span');
+    const filterOptions = filterMenu.querySelectorAll('span');
 
-    filtersLabel.forEach((filter, index) => {
-        filter.textContent = labelDivs[index].textContent;
+    filterOptions.forEach((filter, index) => {
+        const hoverHandler = () => {
+            filter.style.backgroundColor = colors[index];
+        }
 
-        filter.addEventListener('mouseover', () => {
-                filter.style.backgroundColor = colors[index];
-        });
-
-        filter.addEventListener('mouseout', () => {
+        const unhoverHandler = () => {
             if (!filter.classList.contains('is-active')) {
                 filter.style.backgroundColor = 'transparent';
             }
-        });
+        }
 
-        filter.addEventListener('click', () => {
-            if (filter.textContent === activeFilter) {
+        const clickHandler = () => {            
+            if (filter === activeFilter && filter.classList.contains('is-active')) {
                 filter.classList.remove('is-active');
                 filter.style.backgroundColor = 'transparent';
 
-                filtersLabel.forEach(f => f.style.opacity = 1);
+                filterOptions.forEach(f => f.style.opacity = 1);
 
                 activeFilter = null;
 
                 showAllItems();
             }
             else {
-                filtersLabel.forEach(f => {
+                filterOptions.forEach(f => {
                     f.classList.remove('is-active');
                     f.style.backgroundColor = 'transparent';
                     f.style.opacity = 0.7;
@@ -242,29 +245,38 @@ function loadFiltersNames() {
                 filter.classList.add('is-active');
                 filter.style.backgroundColor = colors[index];
                 filter.style.opacity = 1;
-                activeFilter = filter.textContent;
+                activeFilter = filter;
 
-                activateFilter(filter);
+                activateFilter(activeFilter);
             }
-        });
-    });
-}
+        }
 
-function activateFilter(filter) {    
-    const selectedFilter = filter.innerText;
+        if ($.data(filter, 'events')) {
+            $(filter).off('mouseover', hoverHandler);        
+            $(filter).off('mouseout', unhoverHandler);        
+            $(filter).off('click', clickHandler);
+        } //supprimer les events
+
+        filter.addEventListener('mouseover', hoverHandler);    
+        filter.addEventListener('mouseout', unhoverHandler);    
+        filter.addEventListener('click', clickHandler);
+    });
+} //récupère les noms des labels et ajoute les listeners aux filtres 
+
+function activateFilter(activeFilter) {
     const listItems = document.querySelectorAll('#list-container li');
 
     listItems.forEach((item) => {
-        const label = item.querySelector('#label-modal p').textContent;
+        const labelText = item.querySelector('#label-modal p').innerText;
         
-        if (label === selectedFilter) {
+        if (labelText === activeFilter.innerText) {
             item.style.display = 'flex';
         }
         else {
             item.style.display = 'none';
         }
     })
-}
+} //active le filtre choisi
 
 function showAllItems() {
     const listItems = document.querySelectorAll('#list-container li');
@@ -272,7 +284,7 @@ function showAllItems() {
     listItems.forEach((item) => {
         item.style.display = 'flex';
     });
-}
+} //montre tous les items
 
 function resetFilters() {
     const filtersLabel = filterMenu.querySelectorAll('span');
@@ -280,10 +292,11 @@ function resetFilters() {
     filtersLabel.forEach(filter => {
         filter.classList.remove('is-active');
         filter.style.backgroundColor = 'transparent';
+        filter.style.opacity = 1;
     });
 
     activeFilter = null;
-}
+} //reset les filtres
 
 function addItemOnClick() {
     if (input.value.length > 0) {
@@ -648,6 +661,7 @@ function loadListFromMenu(activeListTitle) {
         
         updateEditButtons();
         updateLabels();
+        resetFilters();
     }
 } //charge une liste depuis le menu
 
@@ -877,5 +891,6 @@ function resetList() {
     }
 
     resetInput();
+    resetFilters();
 } //reset la page pour démarrer une nouvelle liste
 //#endregion
