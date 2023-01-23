@@ -30,3 +30,21 @@ h1 {
     font-size: 3rem;
     color: rgb(var(--text));
 }
+
+.tooltip {
+    display: block;
+    position: fixed;
+    bottom: 10vh;
+    left: 50vw;
+    transform: translateX(-50%);
+    width: fit-content;
+    height: fit-content;
+    padding: 1rem;
+    border-radius: 20px;
+    font-size: 2rem;
+    background: rgba(var(--text), 0.3);
+    backdrop-filter: blur(150px);
+    color: rgb(var(--background));
+    z-index: 900;
+    pointer-events: none;
+}
