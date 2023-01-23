@@ -59,7 +59,7 @@ saveButton.addEventListener('click', saveList);
 destroyButton.addEventListener('click', destroyList);
 exportButton.addEventListener('click', exportList);
 importButton.addEventListener('click', importList);
-newListButton.addEventListener('click', resetList);
+newListButton.addEventListener('click', checkBeforeReset);
 filterButton.addEventListener('click', toggleFilter);
 cleanButton.addEventListener('click', removeDoneItems);
 window.addEventListener('load', loadListToMenu);
@@ -296,6 +296,8 @@ function resetFilters() {
     });
 
     activeFilter = null;
+
+       
 } //reset les filtres
 
 function addItemOnClick() {
@@ -609,7 +611,8 @@ function updateActiveList() {
         localStorage.setItem(`list-${listTitle.innerText}`, JSON.stringify(currentListData));
 
         activeList = listTitle.innerText;
-    } else if (!activeList && ul.children.length !== 0) {
+    } 
+    else if (!activeList && ul.children.length !== 0) {
         addListToMenu(listTitle.innerText);
     }
 } //met à jour la liste active
@@ -881,6 +884,19 @@ function destroyList() {
     resetList();
 } //détruit la liste du localStorage et du menu
 
+function checkBeforeReset() {
+    const listItems = document.querySelectorAll('#list-container li');
+
+    if (activeList === "" && listItems.length > 0) {
+        if (confirm("You haven't saved the current list. Are you sure you want to continue?")) {
+            resetList();
+        }
+    }
+    else {
+        resetList();
+    }
+} //vérifie si la liste a été sauvegardée et alerte l'utilisateur si non
+
 function resetList() {
     activeList = "";
     listTitle.textContent = "";
@@ -891,6 +907,12 @@ function resetList() {
     }
 
     resetInput();
+
+    if (filterMenu.classList.contains('open')) {
+        toggleFilter();
+    }
+
     resetFilters();
+    updateLabels();
 } //reset la page pour démarrer une nouvelle liste
 //#endregion
