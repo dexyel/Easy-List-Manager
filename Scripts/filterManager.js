@@ -20,7 +20,7 @@ function toggleFilter() {
 } //ouvre le menu des filtres
 
 function loadFiltersNames() {
-    const filterOptions = filterMenu.querySelectorAll('span');
+    let filterOptions = filterMenu.querySelectorAll('span');
 
     filterOptions.forEach((filter, index) => {
         const hoverHandler = () => {
